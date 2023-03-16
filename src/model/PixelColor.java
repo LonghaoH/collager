@@ -98,6 +98,57 @@ public class PixelColor {
   }
 
   /**
+   * Changes the pixel to the color component of the color given
+   * @param type the color component to filter on
+   */
+  public PixelColor colComponent(String type) {
+    switch(type) {
+      case "red":
+        return new PixelColor(this.getRed(), 0, 0);
+      case "green":
+        return new PixelColor(0, this.getGreen(), 0);
+      case "blue":
+        return new PixelColor(0, 0, this.getBlue());
+      default:
+        return this;
+    }
+  }
+
+  /**
+   * Brightens the pixel either using value, intensity, or luma
+   * @param type the type of brightening method to use
+   */
+  public PixelColor brighten(String type) {
+    switch(type) {
+      case "value":
+        //math for value brightening
+      case "intensity":
+        //math for intensity brightening
+      case "luma":
+        //math for luma brightening
+      default:
+        return this;
+    }
+  }
+
+  /**
+   * Darkens the pixel either using value, intensity, or luma
+   * @param type the type of darkening method to use
+   */
+  public PixelColor darken(String type) {
+    switch(type) {
+      case "value":
+        //math for value darkening
+      case "intensity":
+        //math for intensity darkening
+      case "luma":
+        //math for luma darkening
+      default:
+        return this;
+    }
+  }
+
+  /**
    * Get the red component's value.
    *
    * @return red value.
