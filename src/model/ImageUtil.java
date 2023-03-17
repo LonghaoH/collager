@@ -54,12 +54,18 @@ public class ImageUtil {
         int g = sc.nextInt();
         int b = sc.nextInt();
 
-        pixelArray[i][j] = new PixelColor(r,g,b);
+        pixelArray[i][j] = new PixelColor(r, g, b);
       }
     }
     return pixelArray;
   }
 
+  /**
+   * Returns the width of the given ppm file.
+   *
+   * @param filename the path to the file
+   * @return an int of the width of the ppm file
+   */
   public static int getWidth(String filename) {
     Scanner sc;
 
@@ -90,6 +96,12 @@ public class ImageUtil {
     return width;
   }
 
+  /**
+   * Returns the height of the given ppm file.
+   *
+   * @param filename the path to the file
+   * @return an int of the height of the ppm file
+   */
   public static int getHeight(String filename) {
     Scanner sc;
 

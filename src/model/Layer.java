@@ -69,7 +69,7 @@ public class Layer {
   }
 
   /**
-   * Returns the image representation of the layer
+   * Returns the image representation of the layer.
    *
    * @return the image representation of the layer
    */
@@ -92,7 +92,7 @@ public class Layer {
   }
 
   /**
-   * Makes the layer a default layer
+   * Makes the layer a default layer.
    *
    * @return a white layer with full transparency
    */
@@ -106,7 +106,7 @@ public class Layer {
   }
 
   /**
-   * Adds an image to the layer
+   * Adds an image to the layer.
    *
    * @param imageName the filepath of the image to be added
    * @param xPos      the x-position of the top-leftmost corner of the image
@@ -135,7 +135,7 @@ public class Layer {
   }
 
   /**
-   * Applies a filter to the layer
+   * Applies a filter to the layer.
    *
    * @param filType the name of the type of filter to be applied
    * @throws IllegalArgumentException if the filter type given is not known
@@ -144,60 +144,70 @@ public class Layer {
     switch (filType) {
       case "normal":
         //do nothing to image
+        break;
       case "red-component":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].colComponent("red");
           }
         }
+        break;
       case "green-component":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].colComponent("green");
           }
         }
+        break;
       case "blue-component":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].colComponent("blue");
           }
         }
+        break;
       case "brighten-value":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].brighten("value");
           }
         }
+        break;
       case "brighten-intensity":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].brighten("intensity");
           }
         }
+        break;
       case "brighten-luma":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].brighten("luma");
           }
         }
+        break;
       case "darken-value":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].darken("value");
           }
         }
+        break;
       case "darken-intensity":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].darken("intensity");
           }
         }
+        break;
       case "darken-luma":
         for (int i = 0; i < this.height; i++) {
           for (int k = 0; k < this.width; i++) {
             this.layerImage[i][k].darken("luma");
           }
         }
+        break;
       default:
         throw new IllegalArgumentException("Filter type unknown.");
     }

@@ -98,11 +98,12 @@ public class PixelColor {
   }
 
   /**
-   * Changes the pixel to the color component of the color given
+   * Changes the pixel to the color component of the color given.
+   *
    * @param type the color component to filter on
    */
   public PixelColor colComponent(String type) {
-    switch(type) {
+    switch (type) {
       case "red":
         return new PixelColor(this.getRed(), 0, 0);
       case "green":
@@ -115,11 +116,12 @@ public class PixelColor {
   }
 
   /**
-   * Brightens the pixel either using value, intensity, or luma
+   * Brightens the pixel either using value, intensity, or luma.
+   *
    * @param type the type of brightening method to use
    */
   public PixelColor brighten(String type) {
-    switch(type) {
+    switch (type) {
       case "value":
         //math for value brightening
       case "intensity":
@@ -132,11 +134,12 @@ public class PixelColor {
   }
 
   /**
-   * Darkens the pixel either using value, intensity, or luma
+   * Darkens the pixel either using value, intensity, or luma.
+   *
    * @param type the type of darkening method to use
    */
   public PixelColor darken(String type) {
-    switch(type) {
+    switch (type) {
       case "value":
         //math for value darkening
       case "intensity":

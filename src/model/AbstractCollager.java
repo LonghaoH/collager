@@ -47,6 +47,7 @@ public abstract class AbstractCollager implements ICollager {
 
   /**
    * Loads a project with the given filepath.
+   *
    * @param filepath a String of the path to the given file
    */
   @Override
@@ -93,10 +94,11 @@ public abstract class AbstractCollager implements ICollager {
 
   /**
    * Adds an image to the layer.
+   *
    * @param layerName the name of the layer
    * @param imageName the name of the image
-   * @param xPos the x-position on the layer of where the image will be placed
-   * @param yPos the y-position on the layrer of where the image will be placed
+   * @param xPos      the x-position on the layer of where the image will be placed
+   * @param yPos      the y-position on the layrer of where the image will be placed
    */
   @Override
   public void addImageToLayer(String layerName, String imageName, int xPos, int yPos) {
@@ -109,11 +111,12 @@ public abstract class AbstractCollager implements ICollager {
 
   /**
    * Sets the filter of the given layer to the filter option given.
-   * @param layerName the name of the layer
+   *
+   * @param layerName    the name of the layer
    * @param filterOption the name of the filter applied
    */
   @Override
-  public void setFilter (String layerName, String filterOption) {
+  public void setFilter(String layerName, String filterOption) {
     for (int i = 0; i < this.layers.size(); i++) {
       if (this.layers.get(i).getName().equals(layerName)) {
         this.layers.get(i).filter(filterOption);
@@ -123,10 +126,11 @@ public abstract class AbstractCollager implements ICollager {
 
   /**
    * Saves the image to a file given by its name.
+   *
    * @param fileName the name of the file
    */
   @Override
-  public void saveImage (String fileName) {
+  public void saveImage(String fileName) {
     /*
     overwrites the file by producing the final image of the project.
      */

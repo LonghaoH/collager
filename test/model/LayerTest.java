@@ -2,8 +2,14 @@ package model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
+/**
+ * Tests the Layer class.
+ */
 public class LayerTest {
   /**
    * Tests the valid and invalid construction of the Layer class.
@@ -116,9 +122,9 @@ public class LayerTest {
         assertEquals(new PixelColor(255, 255, 255, 0), layer.getLayerImage()[i][k]);
       }
     }
-    layer.addImage
-            ("C:\\Users\\jdhoo\\Documents\\IntelliJ\\Collager\\utils\\purple50x50.ppm",
-                    0, 0);
+    layer.addImage(
+            "C:\\Users\\jdhoo\\Documents\\IntelliJ\\Collager\\utils\\purple50x50.ppm",
+            0, 0);
 
     assertEquals(168, layer.getLayerImage()[50][50].getRed());
     assertEquals(91, layer.getLayerImage()[50][50].getGreen());

@@ -3,12 +3,17 @@ package model;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Objects;
+
 import model.PixelColor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests the PixelColor class.
+ */
 public class PixelColorTest {
   PixelColor pc1;
   PixelColor pc2;
@@ -20,7 +25,7 @@ public class PixelColorTest {
   @Before
   public void setUp() throws Exception {
     pc1 = new PixelColor(255, 255, 255, 255);
-    pc2 = new PixelColor(0, 0 , 0, 255);
+    pc2 = new PixelColor(0, 0, 0, 255);
     pc3 = new PixelColor(128, 128, 0, 128);
     pc4 = new PixelColor(0, 128, 0, 128);
     pc5 = new PixelColor(128, 128, 128, 0);
@@ -188,7 +193,7 @@ public class PixelColorTest {
   public void testEquals() throws Exception {
     this.setUp();
     assertFalse(pc4.equals(pc1));
-    assertFalse(pc4.equals(null));
+    assertFalse(Objects.isNull(pc4));
     assertFalse(pc4.equals(new PixelColor(1, 128, 0, 128)));
     assertFalse(pc4.equals(new PixelColor(0, 127, 0, 128)));
     assertFalse(pc4.equals(new PixelColor(0, 128, 2, 128)));
