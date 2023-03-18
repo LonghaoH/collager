@@ -36,7 +36,7 @@ public class Collager {
     }
     this.height = height;
     this.width = width;
-    this.background = new Layer("background", height, width, new Filter()).whiteLayer();
+    this.background = new Layer("background", height, width, maxVal).whiteLayer();
     this.layers.add(this.background);
   }
 
@@ -67,7 +67,7 @@ public class Collager {
         throw new IllegalArgumentException("Same name as other layer");
       }
     }
-    this.layers.add(new Layer(name, this.height, this.width, new Filter()).defaultLayer());
+    this.layers.add(new Layer(name, this.height, this.width, this.maxVal).defaultLayer());
   }
 
   public void addImageToLayer(String layerName, String imageName, int xPos, int yPos) {
