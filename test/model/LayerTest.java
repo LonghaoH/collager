@@ -135,4 +135,72 @@ public class LayerTest {
     assertNotEquals(188, layer.getLayerImage()[99][99].getBlue());
   }
 
+  @Test
+  public void testFilter() {
+    Layer layer = new Layer("Layer1", 100, 100, 255);
+    try {
+      layer.filter("FILTERING AHHHHH");
+      fail("Should not be able to filter with unrecognized filter type");
+    } catch (IllegalArgumentException e) {
+      //do nothing
+    }
+    layer.whiteLayer();
+    Layer layer1 = layer;
+    layer.filter("normal");
+    assertEquals(layer.getLayerImage(), layer1.getLayerImage());
+
+    layer.filter("darken-value");
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(0, layer.getLayerImage()[i][k].getRed());
+        assertEquals(0, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(0, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+
+    layer.filter("brighten-value");
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(255, layer.getLayerImage()[i][k].getRed());
+        assertEquals(255, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(255, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+
+    layer.filter("darken-intensity");
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(0, layer.getLayerImage()[i][k].getRed());
+        assertEquals(0, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(0, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+
+    layer.filter("brighten-intensity");
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(255, layer.getLayerImage()[i][k].getRed());
+        assertEquals(255, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(255, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+
+    layer.filter("darken-luma");
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(0, layer.getLayerImage()[i][k].getRed());
+        assertEquals(0, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(0, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+
+    layer.filter("brighten-luma");
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(254, layer.getLayerImage()[i][k].getRed());
+        assertEquals(254, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(254, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+  }
 }

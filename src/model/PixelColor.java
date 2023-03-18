@@ -1,15 +1,16 @@
 package model;
 
 import java.util.Objects;
+import java.lang.Math;
 
 /**
  * This class represents the color values of a single pixel.
  */
 public class PixelColor {
   private final int alpha;
-  private final int red;
-  private final int green;
-  private final int blue;
+  private int red;
+  private int green;
+  private int blue;
   private final int value;
   private final double intensity;
   private final double luma;
@@ -101,17 +102,24 @@ public class PixelColor {
    * Changes the pixel to the color component of the color given.
    *
    * @param type the color component to filter on
+   * @throws IllegalArgumentException if the given type is not supported
    */
-  public PixelColor colComponent(String type) {
+  public void colComponent(String type) throws IllegalArgumentException {
     switch (type) {
       case "red":
-        return new PixelColor(this.getRed(), 0, 0);
+        this.green = 0;
+        this.blue = 0;
+        break;
       case "green":
-        return new PixelColor(0, this.getGreen(), 0);
+        this.red = 0;
+        this.blue = 0;
+        break;
       case "blue":
-        return new PixelColor(0, 0, this.getBlue());
+        this.red = 0;
+        this.green = 0;
+        break;
       default:
-        return this;
+        throw new IllegalArgumentException("Not supported color");
     }
   }
 
@@ -119,17 +127,60 @@ public class PixelColor {
    * Brightens the pixel either using value, intensity, or luma.
    *
    * @param type the type of brightening method to use
+   * @throws IllegalArgumentException if the type of filter is not recognized
    */
-  public PixelColor brighten(String type) {
+  public void brighten(String type) throws IllegalArgumentException {
     switch (type) {
       case "value":
-        //math for value brightening
+        this.red += this.value;
+        if (this.red > 255) {
+          this.red = 255;
+        }
+
+        this.green += this.value;
+        if (this.green > 255) {
+          this.green = 255;
+        }
+
+        this.blue += this.value;
+        if (this.blue > 255) {
+          this.blue = 255;
+        }
+        break;
       case "intensity":
-        //math for intensity brightening
+        this.red += this.intensity;
+        if (this.red > 255) {
+          this.red = 255;
+        }
+
+        this.green += this.intensity;
+        if (this.green > 255) {
+          this.green = 255;
+        }
+
+        this.blue += this.intensity;
+        if (this.blue > 255) {
+          this.blue = 255;
+        }
+        break;
       case "luma":
-        //math for luma brightening
+        this.red += this.luma;
+        if (this.red > 255) {
+          this.red = 255;
+        }
+
+        this.green += this.luma;
+        if (this.green > 255) {
+          this.green = 255;
+        }
+
+        this.blue += this.luma;
+        if (this.blue > 255) {
+          this.blue = 255;
+        }
+        break;
       default:
-        return this;
+        throw new IllegalArgumentException("Filter type not supported.");
     }
   }
 
@@ -137,17 +188,60 @@ public class PixelColor {
    * Darkens the pixel either using value, intensity, or luma.
    *
    * @param type the type of darkening method to use
+   * @throws IllegalArgumentException if the type of filter is not recognized
    */
-  public PixelColor darken(String type) {
+  public void darken(String type) throws IllegalArgumentException {
     switch (type) {
       case "value":
-        //math for value darkening
+        this.red -= this.value;
+        if (this.red < 0) {
+          this.red = 0;
+        }
+
+        this.green -= this.value;
+        if (this.green < 0) {
+          this.green = 0;
+        }
+
+        this.blue -= this.value;
+        if (this.blue < 0) {
+          this.blue = 0;
+        }
+        break;
       case "intensity":
-        //math for intensity darkening
+        this.red -= this.intensity;
+        if (this.red < 0) {
+          this.red = 0;
+        }
+
+        this.green -= this.intensity;
+        if (this.green < 0) {
+          this.green = 0;
+        }
+
+        this.blue -= this.intensity;
+        if (this.blue < 0) {
+          this.blue = 0;
+        }
+        break;
       case "luma":
-        //math for luma darkening
+        this.red -= this.luma;
+        if (this.red < 0) {
+          this.red = 0;
+        }
+
+        this.green -= this.luma;
+        if (this.green < 0) {
+          this.green = 0;
+        }
+
+        this.blue -= this.luma;
+        if (this.blue < 0) {
+          this.blue = 0;
+        }
+        break;
       default:
-        return this;
+        throw new IllegalArgumentException("Filter type not supported.");
     }
   }
 

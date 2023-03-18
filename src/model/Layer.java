@@ -147,63 +147,63 @@ public class Layer {
         break;
       case "red-component":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].colComponent("red");
           }
         }
         break;
       case "green-component":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].colComponent("green");
           }
         }
         break;
       case "blue-component":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].colComponent("blue");
           }
         }
         break;
       case "brighten-value":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].brighten("value");
           }
         }
         break;
       case "brighten-intensity":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].brighten("intensity");
           }
         }
         break;
       case "brighten-luma":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].brighten("luma");
           }
         }
         break;
       case "darken-value":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].darken("value");
           }
         }
         break;
       case "darken-intensity":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].darken("intensity");
           }
         }
         break;
       case "darken-luma":
         for (int i = 0; i < this.height; i++) {
-          for (int k = 0; k < this.width; i++) {
+          for (int k = 0; k < this.width; k++) {
             this.layerImage[i][k].darken("luma");
           }
         }

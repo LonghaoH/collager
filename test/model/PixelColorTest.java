@@ -5,11 +5,10 @@ import org.junit.Test;
 
 import java.util.Objects;
 
-import model.PixelColor;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Tests the PixelColor class.
@@ -143,6 +142,167 @@ public class PixelColorTest {
     assertEquals(0, ePc5.getRed());
     assertEquals(0, ePc5.getGreen());
     assertEquals(0, ePc5.getBlue());
+  }
+
+  @Test
+  public void testColComponent() throws Exception {
+    this.setUp();
+    try {
+      pc2.colComponent("hi");
+      fail("Should not be able to initialize with unsupported color");
+    } catch (IllegalArgumentException e) {
+      //do nothing
+    }
+    pc1.colComponent("red");
+    assertEquals(255, pc1.getRed());
+    assertEquals(0, pc1.getGreen());
+    assertEquals(0, pc1.getBlue());
+    pc3.colComponent("red");
+    assertEquals(128, pc3.getRed());
+    assertEquals(0, pc3.getGreen());
+    assertEquals(0, pc3.getBlue());
+
+    pc5.colComponent("green");
+    assertEquals(0, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(0, pc5.getBlue());
+    pc2.colComponent("green");
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+
+    pc6.colComponent("blue");
+    assertEquals(0, pc6.getRed());
+    assertEquals(0, pc6.getGreen());
+    assertEquals(255, pc6.getBlue());
+    pc2.colComponent("blue");
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+  }
+
+  @Test
+  public void testBrighten() throws Exception {
+    this.setUp();
+    try {
+      pc1.brighten("BRIGHTEN");
+      fail("Should not be able to use brighten with unknown type");
+    } catch (IllegalArgumentException e) {
+      //do nothing
+    }
+    assertEquals(255, pc1.getRed());
+    assertEquals(255, pc1.getGreen());
+    assertEquals(255, pc1.getBlue());
+    pc1.brighten("value");
+    assertEquals(255, pc1.getRed());
+    assertEquals(255, pc1.getGreen());
+    assertEquals(255, pc1.getBlue());
+
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(128, pc5.getBlue());
+    pc5.brighten("value");
+    assertEquals(255, pc5.getRed());
+    assertEquals(255, pc5.getGreen());
+    assertEquals(255, pc5.getBlue());
+
+    this.setUp();
+
+    assertEquals(255, pc1.getRed());
+    assertEquals(255, pc1.getGreen());
+    assertEquals(255, pc1.getBlue());
+    pc1.brighten("intensity");
+    assertEquals(255, pc1.getRed());
+    assertEquals(255, pc1.getGreen());
+    assertEquals(255, pc1.getBlue());
+
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(128, pc5.getBlue());
+    pc5.brighten("intensity");
+    assertEquals(255, pc5.getRed());
+    assertEquals(255, pc5.getGreen());
+    assertEquals(255, pc5.getBlue());
+
+    this.setUp();
+
+    assertEquals(255, pc1.getRed());
+    assertEquals(255, pc1.getGreen());
+    assertEquals(255, pc1.getBlue());
+    pc1.brighten("luma");
+    assertEquals(255, pc1.getRed());
+    assertEquals(255, pc1.getGreen());
+    assertEquals(255, pc1.getBlue());
+
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(128, pc5.getBlue());
+    pc5.brighten("luma");
+    assertEquals(255, pc5.getRed());
+    assertEquals(255, pc5.getGreen());
+    assertEquals(255, pc5.getBlue());
+  }
+
+  @Test
+  public void testDarken() throws Exception {
+    this.setUp();
+    try {
+      pc1.darken("DARKEN");
+      fail("Should not be able to use darken with unknown type");
+    } catch (IllegalArgumentException e) {
+      //do nothing
+    }
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+    pc2.darken("value");
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(128, pc5.getBlue());
+    pc5.darken("value");
+    assertEquals(0, pc5.getRed());
+    assertEquals(0, pc5.getGreen());
+    assertEquals(0, pc5.getBlue());
+
+    this.setUp();
+
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+    pc2.darken("intensity");
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(128, pc5.getBlue());
+    pc5.darken("intensity");
+    assertEquals(0, pc5.getRed());
+    assertEquals(0, pc5.getGreen());
+    assertEquals(0, pc5.getBlue());
+
+    this.setUp();
+
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+    pc2.darken("luma");
+    assertEquals(0, pc2.getRed());
+    assertEquals(0, pc2.getGreen());
+    assertEquals(0, pc2.getBlue());
+
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(128, pc5.getBlue());
+    pc5.darken("luma");
+    assertEquals(0, pc5.getRed());
+    assertEquals(0, pc5.getGreen());
+    assertEquals(0, pc5.getBlue());
   }
 
   @Test
