@@ -79,8 +79,8 @@ public class CollagerControllerImpl implements CollagerController {
           xPos = Integer.parseInt(sc.next());
           yPos = Integer.parseInt(sc.next());
           currentCollager.addImageToLayer(layerName, imageName, xPos, yPos);
-          appendMessage("Added image " + imageName + " to layer " + layerName + " at (" +
-                  xPos + ", " + yPos + ").\n");
+          appendMessage("Added image " + imageName + " to layer " + layerName + " at ("
+                  + xPos + ", " + yPos + ").\n");
           break;
         case "set-filter":
           layerName = sc.next();
