@@ -63,3 +63,7 @@ Layer
     - This class represents a layer in the Collager project.
     - A Layer has a name, height, and width.
     - Filters can be applied to individual layers.
+    
+The image "purple50x50.ppm" was created by me and I authorize it's use in this project.
+
+Contains code in the ImageUtil class written by Professor Lucia Nunez, who authorized it's use in this project.
