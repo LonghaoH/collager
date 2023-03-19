@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Objects;
-import java.lang.Math;
 
 /**
  * This class represents the color values of a single pixel.

@@ -45,14 +45,16 @@ public class Collager {
    * @param filepath a String of the path to the given file
    */
   public void loadProject(String filepath) {
-
+    // to implement
+    return;
   }
 
   /**
    * Saves the project as one file.
    */
   public void saveProject() {
-
+    // to implement
+    return;
   }
 
   /**
@@ -70,6 +72,14 @@ public class Collager {
     this.layers.add(new Layer(name, this.height, this.width, this.maxVal).defaultLayer());
   }
 
+  /**
+   * Adds an image to the given layer at the specified positions.
+   *
+   * @param layerName the name of the layer to add the image to.
+   * @param imageName the name of the image to be added.
+   * @param xPos the x-position.
+   * @param yPos the y-position.
+   */
   public void addImageToLayer(String layerName, String imageName, int xPos, int yPos) {
     for (int i = 0; i < this.layers.size(); i++) {
       if (this.layers.get(i).getName().equals(layerName)) {
@@ -80,19 +90,23 @@ public class Collager {
 
   /**
    * Sets the filter of the given layer to the filter option given.
+   *
    * @param layerName the name of the layer
    * @param filterOption ***maybe not a string change as needed
    */
-  public void setFilter (String layerName, String filterOption) {
-
+  public void setFilter(String layerName, String filterOption) {
+    // to implement
+    return;
   }
 
   /**
    * Saves the image to a file given by its name.
+   *
    * @param fileName the name of the file
    */
-  public void saveImage (String fileName) {
-
+  public void saveImage(String fileName) {
+    // to implement
+    return;
   }
 
   /**
