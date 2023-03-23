@@ -1,9 +1,6 @@
 package model;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents an Abstract Collager Program. Can be used with any Image, and a specified maximum
@@ -13,7 +10,6 @@ public abstract class AbstractCollager implements ICollager {
   protected int height;
   protected int width;
   protected final int maxVal;
-  protected Layer background;
   protected final ArrayList<Layer> layers;
 
   /**
@@ -23,7 +19,6 @@ public abstract class AbstractCollager implements ICollager {
     this.height = 0;
     this.width = 0;
     this.maxVal = maxVal;
-    this.background = null;
     this.layers = new ArrayList<>();
   }
 
@@ -41,39 +36,7 @@ public abstract class AbstractCollager implements ICollager {
     }
     this.height = height;
     this.width = width;
-    this.background = new Layer("background", height, width, this.maxVal).whiteLayer();
-    this.layers.add(this.background);
-  }
-
-  /**
-   * Loads a project with the given filepath.
-   *
-   * @param filepath a String of the path to the given file
-   */
-  @Override
-  public void loadProject(String filepath) {
-    Scanner sc;
-
-    try {
-      sc = new Scanner(new FileInputStream(filepath));
-    } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File " + filepath + " not found!");
-    }
-
-    /*
-    determine file format then use String parsing to set the data from the file using newProject
-    method.
-     */
-  }
-
-  /**
-   * Saves the project as one file.
-   */
-  @Override
-  public void saveProject() {
-    /*
-    saves the project as specified file format. not sure about naming file or not.
-     */
+    this.layers.add(new Layer("background", height, width, this.maxVal).whiteLayer());
   }
 
   /**
@@ -122,18 +85,6 @@ public abstract class AbstractCollager implements ICollager {
         this.layers.get(i).filter(filterOption);
       }
     }
-  }
-
-  /**
-   * Saves the image to a file given by its name.
-   *
-   * @param fileName the name of the file
-   */
-  @Override
-  public void saveImage(String fileName) {
-    /*
-    overwrites the file by producing the final image of the project.
-     */
   }
 
   /**

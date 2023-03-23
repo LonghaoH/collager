@@ -10,7 +10,8 @@ public class Layer {
   private final int height;
   private final int width;
   private final int maxVal;
-  private final PixelColor[][] layerImage;
+  private String filter;
+  protected final PixelColor[][] layerImage;
 
   /**
    * Initializes the layer.
@@ -28,6 +29,7 @@ public class Layer {
       this.height = height;
       this.width = width;
       this.maxVal = maxVal;
+      this.filter = "normal";
       this.layerImage = new PixelColor[this.height][this.width];
     }
   }
@@ -66,6 +68,15 @@ public class Layer {
    */
   public int getMaxVal() {
     return this.maxVal;
+  }
+
+  /**
+   * Returns the filter on the layer.
+   *
+   * @return the filter of the layer
+   */
+  public String getFilter() {
+    return this.filter;
   }
 
   /**
@@ -143,7 +154,7 @@ public class Layer {
   public void filter(String filType) throws IllegalArgumentException {
     switch (filType) {
       case "normal":
-        //do nothing to image
+        this.filter = "normal";
         break;
       case "red-component":
         for (int i = 0; i < this.height; i++) {
@@ -151,6 +162,7 @@ public class Layer {
             this.layerImage[i][k].colComponent("red");
           }
         }
+        this.filter = "red-component";
         break;
       case "green-component":
         for (int i = 0; i < this.height; i++) {
@@ -158,6 +170,7 @@ public class Layer {
             this.layerImage[i][k].colComponent("green");
           }
         }
+        this.filter = "green-component";
         break;
       case "blue-component":
         for (int i = 0; i < this.height; i++) {
@@ -165,6 +178,7 @@ public class Layer {
             this.layerImage[i][k].colComponent("blue");
           }
         }
+        this.filter = "blue-component";
         break;
       case "brighten-value":
         for (int i = 0; i < this.height; i++) {
@@ -172,6 +186,7 @@ public class Layer {
             this.layerImage[i][k].brighten("value");
           }
         }
+        this.filter = "brighten-value";
         break;
       case "brighten-intensity":
         for (int i = 0; i < this.height; i++) {
@@ -179,6 +194,7 @@ public class Layer {
             this.layerImage[i][k].brighten("intensity");
           }
         }
+        this.filter = "brighten-intensity";
         break;
       case "brighten-luma":
         for (int i = 0; i < this.height; i++) {
@@ -186,6 +202,7 @@ public class Layer {
             this.layerImage[i][k].brighten("luma");
           }
         }
+        this.filter = "brighten-luma";
         break;
       case "darken-value":
         for (int i = 0; i < this.height; i++) {
@@ -193,6 +210,7 @@ public class Layer {
             this.layerImage[i][k].darken("value");
           }
         }
+        this.filter = "darken-value";
         break;
       case "darken-intensity":
         for (int i = 0; i < this.height; i++) {
@@ -200,6 +218,7 @@ public class Layer {
             this.layerImage[i][k].darken("intensity");
           }
         }
+        this.filter = "darken-intensity";
         break;
       case "darken-luma":
         for (int i = 0; i < this.height; i++) {
@@ -207,6 +226,7 @@ public class Layer {
             this.layerImage[i][k].darken("luma");
           }
         }
+        this.filter = "darken-luma";
         break;
       default:
         throw new IllegalArgumentException("Filter type unknown.");

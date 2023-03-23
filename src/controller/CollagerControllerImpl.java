@@ -1,11 +1,18 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
+import model.AbstractCollager;
 import model.CollagerPPM;
+import model.ImageUtil;
 import model.Layer;
+import model.PixelColor;
 
 /**
  * Represents an implementation of the collager controller interface. It accepts commands from
@@ -26,7 +33,7 @@ public class CollagerControllerImpl implements CollagerController {
   @Override
   public void run() throws IOException {
     Scanner sc = new Scanner(System.in);
-    CollagerPPM currentCollager = new CollagerPPM();
+    AbstractCollager currentCollager = new CollagerPPM();
     int height;
     int width;
     String path;
@@ -57,11 +64,29 @@ public class CollagerControllerImpl implements CollagerController {
           break;
         case "load-project":
           path = sc.next();
-          currentCollager.loadProject(path);
-          appendMessage("Loaded project from " + path + ".\n");
+          currentCollager = ImageUtil.readCollager(path);
           break;
         case "save-project":
-          currentCollager.saveProject();
+          try {
+            FileWriter file = new FileWriter("project.txt");
+            file.write("C1\n" + currentCollager.getWidth() + " " + currentCollager.getHeight()
+                    + "\n" + currentCollager.getMaxVal() + "\n");
+            for (int i = 0; i < currentCollager.getLayers().size(); i++) {
+              Layer layer = currentCollager.getLayers().get(i);
+              file.write(layer.getName() + " " +
+                      layer.getFilter() + "\n");
+              for (int k = 0; k < layer.getHeight(); k++) {
+                for (int j = 0; j < layer.getWidth(); j++) {
+                  PixelColor pixel = layer.getLayerImage()[k][j];
+                  file.write(pixel.getRed() + " " + pixel.getGreen() + " "
+                          + pixel.getBlue() + pixel.getAlpha() + "\n");
+                }
+              }
+            }
+            file.close();
+          } catch (IOException e) {
+            throw new IllegalStateException(e.getMessage());
+          }
           appendMessage("Project saved.\n");
           break;
         case "add-layer":
@@ -85,7 +110,14 @@ public class CollagerControllerImpl implements CollagerController {
         case "set-filter":
           layerName = sc.next();
           filType = sc.next();
-          if (!currentCollager.getLayers().contains(layerName)) {
+          boolean contains = false;
+          for (Layer layer : currentCollager.getLayers()) {
+            if (layer.getName().equals(layerName)) {
+              contains = true;
+              break;
+            }
+          }
+          if (!contains) {
             throw new IllegalArgumentException("Layer does not exist.");
           }
           for (Layer layer : currentCollager.getLayers()) {
@@ -103,7 +135,40 @@ public class CollagerControllerImpl implements CollagerController {
           break;
         case "save-image":
           fileName = sc.next();
-          currentCollager.saveImage(fileName);
+          try {
+            FileWriter file = new FileWriter(fileName);
+            file.write("P3" + "\n" + currentCollager.getWidth() + " "
+                    + currentCollager.getHeight() + "\n" + currentCollager.getMaxVal() + "\n");
+
+            PixelColor[][] image =
+                    currentCollager.getLayers().get(0).getLayerImage();
+            PixelColor[][] layerCurrent = null;
+            for (int i = 1; i < currentCollager.getLayers().size() - 1; i++) {
+              layerCurrent = currentCollager.getLayers().get(i).getLayerImage();
+              PixelColor[][] layerPrev = image;
+              for (int j = 0; j < currentCollager.getHeight(); j++) {
+                for (int k = 0; k < currentCollager.getWidth(); k++) {
+                  image[j][k] = layerCurrent[j][k].layerColor(
+                          layerPrev[j][k].getRed(),
+                          layerPrev[j][k].getGreen(),
+                          layerPrev[j][k].getBlue(),
+                          layerPrev[j][k].getAlpha());
+                }
+              }
+            }
+
+            for (int i = 0; i < currentCollager.getHeight(); i++) {
+              for (int k = 0; k < currentCollager.getHeight(); k++) {
+                file.write(layerCurrent[i][k].getRed() + " " +
+                        layerCurrent[i][k].getGreen() + " " +
+                        layerCurrent[i][k].getBlue() + " " +
+                        layerCurrent[i][k].getAlpha() + "\n");
+              }
+            }
+            file.close();
+          } catch (IOException e) {
+            throw new IllegalStateException(e.getMessage());
+          }
           appendMessage("Image has been saved to " + fileName + ".\n");
           break;
         default:
@@ -111,6 +176,7 @@ public class CollagerControllerImpl implements CollagerController {
           break;
       }
     }
+
   }
 
   /**

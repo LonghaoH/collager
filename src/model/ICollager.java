@@ -18,18 +18,6 @@ public interface ICollager {
   void newProject(int height, int width) throws IllegalArgumentException;
 
   /**
-   * Loads a project with the given filepath.
-   *
-   * @param filepath a String of the path to the given file
-   */
-  void loadProject(String filepath);
-
-  /**
-   * Saves the project as one file.
-   */
-  void saveProject();
-
-  /**
    * Adds a default layer to the collager.
    *
    * @param name the name of the layer
@@ -54,13 +42,6 @@ public interface ICollager {
    * @param filterOption the name of the filter applied
    */
   void setFilter(String layerName, String filterOption);
-
-  /**
-   * Saves the image to a file given by its name.
-   *
-   * @param fileName the name of the file
-   */
-  void saveImage(String fileName);
 
   /**
    * Returns the height of the collager.

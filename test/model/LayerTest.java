@@ -67,6 +67,12 @@ public class LayerTest {
   }
 
   @Test
+  public void testGetFilter() {
+    Layer layer = new Layer("Layer1", 500, 500, 255);
+    assertEquals("normal", layer.getFilter());
+  }
+
+  @Test
   public void testGetLayerImage() {
     Layer layer = new Layer("Layer1", 500, 500, 255);
     assertEquals(500, layer.getLayerImage().length);
