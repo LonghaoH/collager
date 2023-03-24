@@ -29,15 +29,14 @@ public class ControllerFileTests {
   Appendable throwaway = new StringBuilder();
 
   @Before
-  public void setUp() {
-    collager = new CollagerPPM();
+  public void setUp() {collager = new CollagerPPM();
   }
 
   @Test
   public void testSaveProject() {
     this.setUp();
     controller = new CollagerControllerImpl(throwaway, new StringReader("new-project 5 5\n" +
-            "save-project\n"));
+            "save-project\n"), collager);
     try {
       controller.run();
 
@@ -76,6 +75,30 @@ public class ControllerFileTests {
         }
       }
     } catch (IOException e) {
+      throw new IllegalArgumentException("invalid input");
+    }
+  }
+
+  @Test
+  public void testLoadProject() {
+    this.setUp();
+    controller = new CollagerControllerImpl(throwaway, new StringReader(
+            "load-project C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\Project"), collager);
+
+    try {
+      assertEquals(0, collager.getWidth());
+      assertEquals(0, collager.getWidth());
+      assertEquals(255, collager.getMaxVal());
+      assertEquals(0, collager.getLayers().size());
+
+      controller.run();
+
+      assertEquals(5, collager.getWidth());
+      assertEquals(5, collager.getWidth());
+      assertEquals(255, collager.getMaxVal());
+      assertEquals(1, collager.getLayers().size());
+      assertEquals("background", collager.getLayers().get(0).getName());
+    } catch(IOException e) {
       throw new IllegalArgumentException("invalid input");
     }
   }

@@ -18,21 +18,22 @@ import model.PixelColor;
 public class CollagerControllerImpl implements CollagerController {
   private final Appendable appendable;
   private final Readable input;
+  private AbstractCollager currentCollager;
 
   /**
    * Constructor: Initializes the controller.
    *
    * @param appendable an appendable object for building messages.
    */
-  public CollagerControllerImpl(Appendable appendable, Readable input) {
+  public CollagerControllerImpl(Appendable appendable, Readable input, AbstractCollager collager) {
     this.appendable = Objects.requireNonNull(appendable);
     this.input = Objects.requireNonNull(input);
+    this.currentCollager = collager;
   }
 
   @Override
   public void run() throws IOException {
     Scanner sc = new Scanner(input);
-    AbstractCollager currentCollager = new CollagerPPM();
     int height;
     int width;
     String path;

@@ -173,6 +173,7 @@ public class ImageUtil {
 
     collager.height = height;
     collager.width = width;
+    collager.maxVal = maxValue;
 
     while(sc.hasNext()) {
 
