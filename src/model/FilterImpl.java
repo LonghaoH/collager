@@ -21,6 +21,38 @@ public class FilterImpl implements IFilter {
 
   @Override
   public void applyFilter(String filType) throws IllegalArgumentException {
-    return;
+    switch (filType) {
+      case "normal":
+        break;
+      case "red-component":
+        this.pixel.colComponent("red");
+        break;
+      case "green-component":
+        this.pixel.colComponent("green");
+        break;
+      case "blue-component":
+        this.pixel.colComponent("blue");
+        break;
+      case "brighten-value":
+        this.pixel.brighten("value");
+        break;
+      case "brighten-intensity":
+        this.pixel.brighten("intensity");
+        break;
+      case "brighten-luma":
+        this.pixel.brighten("luma");
+        break;
+      case "darken-value":
+        this.pixel.darken("value");
+        break;
+      case "darken-intensity":
+        this.pixel.darken("intensity");
+        break;
+      case "darken-luma":
+        this.pixel.darken("luma");
+        break;
+      default:
+        throw new IllegalArgumentException("Filter type unknown.");
+    }
   }
 }
