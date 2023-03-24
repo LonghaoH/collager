@@ -18,6 +18,7 @@ import static org.junit.Assert.fail;
  * Tests the file writing and file saving methods of the controller, save-image, save-project,
  * load-project.
  */
+
 public class ControllerFileTests {
   AbstractCollager collager;
   CollagerController controller;
