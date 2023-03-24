@@ -11,5 +11,5 @@ public interface IFilter {
    * @param filType the name of the type of filter to be applied onto the pixel.
    * @throws IllegalArgumentException if the filter type given is not known
    */
-  public void applyFilter(String filType) throws IllegalArgumentException;
+  void applyFilter(String filType) throws IllegalArgumentException;
 }
