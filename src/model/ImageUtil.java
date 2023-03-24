@@ -134,6 +134,7 @@ public class ImageUtil {
 
   /**
    * Reads a collager file.
+   *
    * @param filename the path to the file
    * @return a collager from the collager file
    */
@@ -181,14 +182,14 @@ public class ImageUtil {
       Layer layer = new Layer(layerName, height, width, maxValue);
       layer.filter(filterName);
 
-
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           int r = sc.nextInt();
           int g = sc.nextInt();
           int b = sc.nextInt();
+          int a = sc.nextInt();
 
-          layer.layerImage[i][j] = new PixelColor(r, g, b);
+          layer.layerImage[i][j] = new PixelColor(r, g, b, a);
         }
       }
 
@@ -196,21 +197,6 @@ public class ImageUtil {
     }
 
     return collager;
-  }
-
-  /**
-   * Demo main.
-   */
-  public static void main(String[] args) {
-    String filename;
-
-    if (args.length > 0) {
-      filename = args[0];
-    } else {
-      filename = "sample.ppm";
-    }
-
-    ImageUtil.readPPM(filename);
   }
 }
 
