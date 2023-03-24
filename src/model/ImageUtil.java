@@ -180,7 +180,6 @@ public class ImageUtil {
       String filterName = sc.next();
 
       Layer layer = new Layer(layerName, height, width, maxValue);
-      layer.filter(filterName);
 
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -192,6 +191,8 @@ public class ImageUtil {
           layer.layerImage[i][j] = new PixelColor(r, g, b, a);
         }
       }
+
+      layer.filter(filterName);
 
       collager.layers.add(layer);
     }

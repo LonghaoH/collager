@@ -78,7 +78,9 @@ public class CollagerControllerImpl implements CollagerController {
               for (int k = 0; k < layer.getHeight(); k++) {
                 for (int j = 0; j < layer.getWidth(); j++) {
                   PixelColor pixel = layer.getLayerImage()[k][j];
-                  if(k == layer.getHeight() -1 && j == layer.getWidth() - 1) {
+                  if(i == currentCollager.getLayers().size() -1 &&
+                          k == layer.getHeight() -1 &&
+                          j == layer.getWidth() - 1) {
                     file.write(pixel.getRed() + " " + pixel.getGreen() + " "
                             + pixel.getBlue() + " " + pixel.getAlpha());
                     break;
