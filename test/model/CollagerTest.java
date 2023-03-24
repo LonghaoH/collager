@@ -12,7 +12,7 @@ public class CollagerTest {
   @Test
   public void testNewProject() {
     //tests that height and width are correctly initialized
-    Collager collager = new Collager();
+    ICollager collager = new CollagerPPM();
     assertEquals(0, collager.getHeight());
     assertEquals(0, collager.getWidth());
     assertEquals(255, collager.getMaxVal());
@@ -38,7 +38,7 @@ public class CollagerTest {
 
   @Test
   public void testAddLayer() {
-    Collager collager = new Collager();
+    ICollager collager = new CollagerPPM();
     collager.newProject(500, 500);
     assertEquals(1, collager.getLayers().size());
     try {
@@ -54,7 +54,7 @@ public class CollagerTest {
 
   @Test
   public void testGetHeight() {
-    Collager collager = new Collager();
+    ICollager collager = new CollagerPPM();
     assertEquals(0, collager.getHeight());
     collager.newProject(500, 500);
     assertEquals(500, collager.getHeight());
@@ -62,7 +62,7 @@ public class CollagerTest {
 
   @Test
   public void testGetWidth() {
-    Collager collager = new Collager();
+    ICollager collager = new CollagerPPM();
     assertEquals(0, collager.getWidth());
     collager.newProject(500, 500);
     assertEquals(500, collager.getWidth());
@@ -70,13 +70,13 @@ public class CollagerTest {
 
   @Test
   public void testGetMaxVal() {
-    Collager collager = new Collager();
+    ICollager collager = new CollagerPPM();
     assertEquals(255, collager.getMaxVal());
   }
 
   @Test
   public void testGetLayers() {
-    Collager collager = new Collager();
+    ICollager collager = new CollagerPPM();
     assertEquals(0, collager.getLayers().size());
     collager.newProject(500, 500);
     assertEquals(1, collager.getLayers().size());
