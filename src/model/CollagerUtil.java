@@ -8,7 +8,7 @@ import java.io.FileInputStream;
  * This class contains utility methods to read a PPM image from file and simply print its contents.
  * Feel free to change this method as required.
  */
-public class ImageUtil {
+public class CollagerUtil {
 
   /**
    * Read an image file in the PPM format and convert it to a 2d array of PixelColor.

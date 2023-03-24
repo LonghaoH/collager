@@ -93,11 +93,11 @@ public class ControllerFileTests {
 
       controller.run();
 
-      assertEquals(5, collager.getWidth());
-      assertEquals(5, collager.getWidth());
-      assertEquals(255, collager.getMaxVal());
-      assertEquals(1, collager.getLayers().size());
-      assertEquals("background", collager.getLayers().get(0).getName());
+      assertEquals(5, this.collager.getWidth());
+      assertEquals(5, this.collager.getWidth());
+      assertEquals(255, this.collager.getMaxVal());
+      assertEquals(1, this.collager.getLayers().size());
+      assertEquals("background", this.collager.getLayers().get(0).getName());
     } catch(IOException e) {
       throw new IllegalArgumentException("invalid input");
     }

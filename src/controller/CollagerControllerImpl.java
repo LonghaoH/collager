@@ -6,8 +6,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import model.AbstractCollager;
-import model.CollagerPPM;
-import model.ImageUtil;
+import model.CollagerUtil;
 import model.Layer;
 import model.PixelColor;
 
@@ -64,7 +63,7 @@ public class CollagerControllerImpl implements CollagerController {
           break;
         case "load-project":
           path = sc.next();
-          currentCollager = ImageUtil.readCollager(path);
+          currentCollager = CollagerUtil.readCollager(path);
           appendMessage("Loaded project.");
           break;
         case "save-project":

@@ -2,12 +2,12 @@ package model;
 
 import org.junit.Test;
 
-import static model.ImageUtil.readCollager;
-import static model.ImageUtil.readPPM;
+import static model.CollagerUtil.readCollager;
+import static model.CollagerUtil.readPPM;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class ImageUtilTest {
+public class CollagerUtilTest {
   @Test
   public void testReadPPM() {
     try {
@@ -25,7 +25,7 @@ public class ImageUtilTest {
       }
     }
 
-    image = ImageUtil.readPPM(
+    image = CollagerUtil.readPPM(
             "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm");
 
     for(int i = 0; i < 50; i++) {
@@ -42,9 +42,9 @@ public class ImageUtilTest {
    */
   @Test
   public void testGetDimensions() {
-    assertEquals(50, ImageUtil.getWidth(
+    assertEquals(50, CollagerUtil.getWidth(
             "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm"));
-    assertEquals(50, ImageUtil.getHeight(
+    assertEquals(50, CollagerUtil.getHeight(
             "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm"));
   }
 

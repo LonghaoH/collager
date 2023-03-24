@@ -126,9 +126,9 @@ public class Layer {
    * @param yPos      the y-position of the top-leftmost corner of the image
    */
   public void addImage(String imageName, int xPos, int yPos) {
-    PixelColor[][] image = ImageUtil.readPPM(imageName);
-    int imageHeight = ImageUtil.getHeight(imageName);
-    int imageWidth = ImageUtil.getWidth(imageName);
+    PixelColor[][] image = CollagerUtil.readPPM(imageName);
+    int imageHeight = CollagerUtil.getHeight(imageName);
+    int imageWidth = CollagerUtil.getWidth(imageName);
 
     int i = yPos;
     int k = xPos;
