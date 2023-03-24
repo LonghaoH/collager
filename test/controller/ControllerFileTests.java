@@ -102,4 +102,9 @@ public class ControllerFileTests {
       throw new IllegalArgumentException("invalid input");
     }
   }
+
+  @Test
+  public void testSaveImage() {
+    
+  }
 }
