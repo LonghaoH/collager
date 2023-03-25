@@ -134,10 +134,15 @@ public class CollagerControllerImpl implements CollagerController {
               layerOp = layer;
             }
           }
-          try {
-            layerOp.filter(filType);
-          } catch (IllegalArgumentException e) {
-            throw new IOException(e.getMessage());
+          if(filType == "difference" || filType == "multiply" || filType == "screen") {
+            layerOp.filterBlend(filType, currentCollager.getLayersBelow(layerOp.getName()));
+          }
+          else {
+            try {
+              layerOp.filter(filType);
+            } catch (IllegalArgumentException e) {
+              throw new IOException(e.getMessage());
+            }
           }
           appendMessage("The filter " + filType + " has been applied to layer "
                   + layerName + ".\n");
