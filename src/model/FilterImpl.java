@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * This class is an implementation of the Filter interface, allowing users to apply various filters
  * to an image.
@@ -13,7 +15,7 @@ public class FilterImpl implements IFilter {
    * @throws IllegalArgumentException if the given PixelColor is null.
    */
   public FilterImpl(PixelColor pixel) throws IllegalArgumentException {
-    if (pixel == null) {
+    if (Objects.isNull(pixel)) {
       throw new IllegalArgumentException("Pixels cannot be null.");
     }
     this.pixel = pixel;
