@@ -123,18 +123,14 @@ public class CollagerControllerImpl implements CollagerController {
           for (Layer layer : currentCollager.getLayers()) {
             if (layer.getName().equals(layerName)) {
               contains = true;
+              layerOp = layer;
               break;
             }
           }
           if (!contains) {
             throw new IllegalArgumentException("Layer does not exist.");
           }
-          for (Layer layer : currentCollager.getLayers()) {
-            if (layer.getName().equals(layerName)) {
-              layerOp = layer;
-            }
-          }
-          if(filType == "difference" || filType == "multiply" || filType == "screen") {
+          if(filType.equals("difference") || filType.equals("multiply") || filType.equals("screen")) {
             layerOp.filterBlend(filType, currentCollager.getLayersBelow(layerOp.getName()));
           }
           else {

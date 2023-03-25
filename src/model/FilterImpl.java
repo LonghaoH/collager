@@ -63,10 +63,10 @@ public class FilterImpl implements IFilter {
         this.pixel.difference(comp);
         break;
       case "multiply":
-        this.pixel.multiply();
+        this.pixel.multiply(comp);
         break;
       case "screen":
-        this.pixel.screen();
+        this.pixel.screen(comp);
         break;
     }
   }

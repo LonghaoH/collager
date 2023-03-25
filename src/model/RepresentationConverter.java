@@ -1,4 +1,4 @@
-package model.swingdemo;
+package model;
 
 /**
  * This class contains utility methods to convert an RGB representation
@@ -20,7 +20,7 @@ public class RepresentationConverter {
    * @param g green value of the RGB between 0 and 1
    * @param b blue value of the RGB between 0 and 1
    */
-  public static void convertRGBtoHSL(double r, double g, double b) {
+  public static double[] convertRGBtoHSL(double r, double g, double b) {
     double componentMax = Math.max(r, Math.max(g, b));
     double componentMin = Math.min(r, Math.min(g, b));
     double delta = componentMax - componentMin;
@@ -47,7 +47,11 @@ public class RepresentationConverter {
       hue = hue * 60;
     }
 
-    System.out.println("RGB (" + r + "," + g + "," + b + ") to HSL => (" + hue + "," + saturation + "," + lightness + ")");
+    double[] hsl = new double[3];
+    hsl[0] = hue;
+    hsl[1] = saturation;
+    hsl[2] = lightness;
+    return hsl;
   }
 
 
@@ -65,11 +69,15 @@ public class RepresentationConverter {
    * @param lightness  lightness of the HSL representation
    */
 
-  public static void convertHSLtoRGB(double hue, double saturation, double lightness) {
+  public static double[] convertHSLtoRGB(double hue, double saturation, double lightness) {
     double r = convertFn(hue, saturation, lightness, 0) * 255;
     double g = convertFn(hue, saturation, lightness, 8) * 255;
     double b = convertFn(hue, saturation, lightness, 4) * 255;
-    System.out.println("HSL (" + hue + "," + saturation + "," + lightness + ") to RGB => (" + r + "," + g + "," + b + ")");
+    double[] rgb = new double[3];
+    rgb[0] = r;
+    rgb[1] = g;
+    rgb[2] = b;
+    return rgb;
   }
 
   /*
@@ -84,14 +92,14 @@ public class RepresentationConverter {
   }
 
   //demo main
-  public static void main(String[] args) {
-    RepresentationConverter.convertRGBtoHSL(0.0, 0.0, 0.0);
-    RepresentationConverter.convertRGBtoHSL(1.0, 1.0, 1.0);
-    RepresentationConverter.convertRGBtoHSL(1.0, 0.0, 0.0);
-
-    RepresentationConverter.convertHSLtoRGB(14.0, 0.813, 0.624);
-    RepresentationConverter.convertHSLtoRGB(0.0, 1.0, 0.5);
-    RepresentationConverter.convertHSLtoRGB(0.0, 0.0, 1.0);
-  }
+//  public static void main(String[] args) {
+//    RepresentationConverter.convertRGBtoHSL(0.0, 0.0, 0.0);
+//    RepresentationConverter.convertRGBtoHSL(1.0, 1.0, 1.0);
+//    RepresentationConverter.convertRGBtoHSL(1.0, 0.0, 0.0);
+//
+//    RepresentationConverter.convertHSLtoRGB(14.0, 0.813, 0.624);
+//    RepresentationConverter.convertHSLtoRGB(0.0, 1.0, 0.5);
+//    RepresentationConverter.convertHSLtoRGB(0.0, 0.0, 1.0);
+//  }
 
 }

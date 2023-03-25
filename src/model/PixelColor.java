@@ -3,6 +3,8 @@ package model;
 import java.util.Objects;
 
 import static java.lang.Math.abs;
+import static model.RepresentationConverter.convertHSLtoRGB;
+import static model.RepresentationConverter.convertRGBtoHSL;
 
 /**
  * This class represents the color values of a single pixel.
@@ -17,8 +19,7 @@ public class PixelColor {
   private final double luma;
 
   /**
-   * Constructor: Represents a 4-components pixel given the alpha and RGB values,
-   * assuming the max value is 255.
+   * Constructor: Represents a 4-components pixel given the alpha and RGB values.
    *
    * @param r the red component.
    * @param g the green component.
@@ -30,7 +31,7 @@ public class PixelColor {
     if (r < 0 || g < 0 || b < 0 || a < 0) {
       throw new IllegalArgumentException("Alpha and RGB values cannot be negative.");
     }
-    alpha = a;
+    alpha = Objects.requireNonNull(a);
     red = Objects.requireNonNull(r);
     green = Objects.requireNonNull(g);
     blue = Objects.requireNonNull(b);
@@ -40,8 +41,7 @@ public class PixelColor {
   }
 
   /**
-   * Constructor: Represents a 3-components pixel given the RGB values,
-   * assuming the max value is 255.
+   * Constructor: Represents a 3-components pixel given the RGB values
    *
    * @param r the red component.
    * @param g the green component.
@@ -92,7 +92,7 @@ public class PixelColor {
    * @return a 3-components PixelColor.
    */
   public PixelColor convertTo3Components() {
-    double percent = alpha / 255.0;
+    double percent = (double) alpha / 255;
     int r = (int) (red * percent);
     int g = (int) (green * percent);
     int b = (int) (blue * percent);
@@ -256,6 +256,48 @@ public class PixelColor {
     this.red = abs(red - dr);
     this.green = abs(green - dg);
     this.blue = abs(blue - db);
+  }
+
+  public void multiply(PixelColor composite) {
+    double[] hsl = convertRGBtoHSL(
+            (double) this.red / 255, (double) this.green / 255, (double) this.blue / 255);
+    double h = hsl[0];
+    double s = hsl[1];
+    double l = hsl[2];
+
+    double[] dHdSdL = convertRGBtoHSL(
+            (double) composite.getRed() / 255,
+            (double) composite.getGreen() / 255,
+            (double) composite.getBlue() / 255);
+    double dH = dHdSdL[0];
+    double dS = dHdSdL[1];
+    double dL = dHdSdL[2];
+
+    double[] rgbNew = convertHSLtoRGB(h, s,l * dL);
+    this.red = (int) rgbNew[0] * 255;
+    this.green = (int) rgbNew[1] * 255;
+    this.blue = (int) rgbNew[2] * 255;
+  }
+
+  public void screen(PixelColor composite) {
+    double[] hsl = convertRGBtoHSL(
+            (double) this.red / 255, (double) this.green / 255, (double) this.blue / 255);
+    double h = hsl[0];
+    double s = hsl[1];
+    double l = hsl[2];
+
+    double[] dHdSdL = convertRGBtoHSL(
+            (double) composite.getRed() / 255,
+            (double) composite.getGreen() / 255,
+            (double) composite.getBlue() / 255);
+    double dH = dHdSdL[0];
+    double dS = dHdSdL[1];
+    double dL = dHdSdL[2];
+
+    double[] rgbNew = convertHSLtoRGB(h, s,(1 - ((1 - l) * (1 - dL))));
+    this.red = (int) rgbNew[0] * 255;
+    this.green = (int) rgbNew[1] * 255;
+    this.blue = (int) rgbNew[2] * 255;
   }
 
   /**
