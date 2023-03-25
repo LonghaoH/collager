@@ -6,8 +6,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import model.AbstractCollager;
-import model.CollagerPPM;
-import model.ImageUtil;
+import model.CollagerUtil;
 import model.Layer;
 import model.PixelColor;
 
@@ -18,21 +17,22 @@ import model.PixelColor;
 public class CollagerControllerImpl implements CollagerController {
   private final Appendable appendable;
   private final Readable input;
+  private AbstractCollager currentCollager;
 
   /**
    * Constructor: Initializes the controller.
    *
    * @param appendable an appendable object for building messages.
    */
-  public CollagerControllerImpl(Appendable appendable, Readable input) {
+  public CollagerControllerImpl(Appendable appendable, Readable input, AbstractCollager collager) {
     this.appendable = Objects.requireNonNull(appendable);
     this.input = Objects.requireNonNull(input);
+    this.currentCollager = collager;
   }
 
   @Override
   public void run() throws IOException {
     Scanner sc = new Scanner(input);
-    AbstractCollager currentCollager = new CollagerPPM();
     int height;
     int width;
     String path;
@@ -63,7 +63,7 @@ public class CollagerControllerImpl implements CollagerController {
           break;
         case "load-project":
           path = sc.next();
-          currentCollager = ImageUtil.readCollager(path);
+          currentCollager = CollagerUtil.readCollager(path);
           appendMessage("Loaded project.");
           break;
         case "save-project":
@@ -78,7 +78,9 @@ public class CollagerControllerImpl implements CollagerController {
               for (int k = 0; k < layer.getHeight(); k++) {
                 for (int j = 0; j < layer.getWidth(); j++) {
                   PixelColor pixel = layer.getLayerImage()[k][j];
-                  if(k == layer.getHeight() -1 && j == layer.getWidth() - 1) {
+                  if(i == currentCollager.getLayers().size() -1 &&
+                          k == layer.getHeight() -1 &&
+                          j == layer.getWidth() - 1) {
                     file.write(pixel.getRed() + " " + pixel.getGreen() + " "
                             + pixel.getBlue() + " " + pixel.getAlpha());
                     break;

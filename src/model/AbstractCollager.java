@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public abstract class AbstractCollager implements ICollager {
   protected int height;
   protected int width;
-  protected final int maxVal;
+  protected int maxVal;
   protected final ArrayList<Layer> layers;
 
   /**
