@@ -55,4 +55,19 @@ public class FilterImpl implements IFilter {
         throw new IllegalArgumentException("Filter type unknown.");
     }
   }
+
+  @Override
+  public void applyBlendFilter(String filType, PixelColor comp) throws IllegalArgumentException {
+    switch (filType) {
+      case "difference":
+        this.pixel.difference(comp);
+        break;
+      case "multiply":
+        this.pixel.multiply();
+        break;
+      case "screen":
+        this.pixel.screen();
+        break;
+    }
+  }
 }

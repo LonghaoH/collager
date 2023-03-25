@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents a layer in a Collager Program. Has a name, a height and width, and a filter name.
  */
-public class Layer {
+public class Layer implements ILayer {
   private String name;
   private final int height;
   private final int width;
@@ -158,6 +158,22 @@ public class Layer {
       for (int j = 0; j < this.width; j++) {
         this.appliedFilter = new FilterImpl(this.layerImage[i][j]);
         this.appliedFilter.applyFilter(filType);
+      }
+    }
+    this.filter = filType;
+  }
+
+  /**
+   * Applies a blending filter to the layer.
+   *
+   * @param filType the name of the type of filter to apply
+   * @param compImage the image composite of all the layers below this
+   */
+  public void filterBlend(String filType, PixelColor[][] compImage) {
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        this.appliedFilter = new FilterImpl(this.layerImage[i][j]);
+        this.appliedFilter.applyBlendFilter(filType, compImage[i][j]);
       }
     }
     this.filter = filType;

@@ -87,6 +87,29 @@ public abstract class AbstractCollager implements ICollager {
     }
   }
 
+  public PixelColor[][] getLayersBelow(String layerName) {
+    PixelColor[][] image = layers.get(0).getLayerImage();
+    PixelColor[][] layerCurrent;
+    for (int i = 0; i < this.layers.size(); i++) {
+      if (this.layers.get(i).getName().equals(layerName)) {
+        for (int w = 1; w < i - 1; w++) {
+          layerCurrent = layers.get(w).getLayerImage();
+          PixelColor[][] layerPrev = image;
+          for (int j = 0; j < this.getHeight(); j++) {
+            for (int k = 0; k < this.getWidth(); k++) {
+              image[j][k] = layerCurrent[j][k].layerColor(
+                      layerPrev[j][k].getRed(),
+                      layerPrev[j][k].getGreen(),
+                      layerPrev[j][k].getBlue(),
+                      layerPrev[j][k].getAlpha()).convertTo3Components();
+            }
+          }
+        }
+      }
+    }
+    return image;
+  }
+
   /**
    * Returns the height of the collager.
    *

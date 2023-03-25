@@ -2,6 +2,8 @@ package model;
 
 import java.util.Objects;
 
+import static java.lang.Math.abs;
+
 /**
  * This class represents the color values of a single pixel.
  */
@@ -242,6 +244,18 @@ public class PixelColor {
       default:
         throw new IllegalArgumentException("Filter type not supported.");
     }
+  }
+
+  public void difference(PixelColor composite) {
+    int dr = composite.getRed();
+    int dg = composite.getGreen();
+    int db = composite.getBlue();
+    int red = this.red;
+    int green = this.green;
+    int blue = this.blue;
+    this.red = abs(red - dr);
+    this.green = abs(green - dg);
+    this.blue = abs(blue - db);
   }
 
   /**
