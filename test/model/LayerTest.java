@@ -209,4 +209,43 @@ public class LayerTest {
       }
     }
   }
+
+  @Test
+  public void testFilterBlend() {
+    Layer layer = new Layer("Layer1", 100, 100, 255);
+    try {
+      layer.filter("FILTERING AHHHHH");
+      fail("Should not be able to filter with unrecognized filter type");
+    } catch (IllegalArgumentException e) {
+      //do nothing
+    }
+    layer.whiteLayer();
+    layer.filterBlend("difference", layer.getLayerImage());
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(0, layer.getLayerImage()[i][k].getRed());
+        assertEquals(0, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(0, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+
+    layer.filterBlend("multiply", layer.whiteLayer().getLayerImage());
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(255, layer.getLayerImage()[i][k].getRed());
+        assertEquals(255, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(255, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+
+    layer.filterBlend("difference", layer.getLayerImage());
+    layer.filterBlend("screen", layer.getLayerImage());
+    for (int i = 0; i < layer.getHeight(); i++) {
+      for (int k = 0; k < layer.getWidth(); k++) {
+        assertEquals(0, layer.getLayerImage()[i][k].getRed());
+        assertEquals(0, layer.getLayerImage()[i][k].getGreen());
+        assertEquals(0, layer.getLayerImage()[i][k].getBlue());
+      }
+    }
+  }
 }
