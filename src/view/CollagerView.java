@@ -17,4 +17,15 @@ public interface CollagerView {
    */
   void createMainFrame() throws UnsupportedLookAndFeelException, ClassNotFoundException,
           InstantiationException, IllegalAccessException;
+
+  /**
+   * Creates a menubar for the view with components: File & Edit.
+   */
+  void createMenuBar();
+
+  /**
+   * Creates an image panel for displaying the composite image from the project that is currently
+   * being worked on.
+   */
+  void createImagePanel();
 }
