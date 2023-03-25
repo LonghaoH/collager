@@ -130,7 +130,9 @@ public class CollagerControllerImpl implements CollagerController {
           if (!contains) {
             throw new IllegalArgumentException("Layer does not exist.");
           }
-          if(filType.equals("difference") || filType.equals("multiply") || filType.equals("screen")) {
+          if(filType.equals("difference") ||
+                  filType.equals("multiply") ||
+                  filType.equals("screen")) {
             layerOp.filterBlend(filType, currentCollager.getLayersBelow(layerOp.getName()));
           }
           else {

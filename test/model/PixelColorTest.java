@@ -306,6 +306,57 @@ public class PixelColorTest {
   }
 
   @Test
+  public void testDifference() throws Exception {
+    this.setUp();
+
+    pc5.difference(pc1);
+    assertEquals(127, pc5.getRed());
+    assertEquals(127, pc5.getGreen());
+    assertEquals(127, pc5.getBlue());
+
+    this.setUp();
+
+    pc5.difference(pc2);
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getRed());
+  }
+
+  @Test
+  public void testMultiply() throws Exception {
+    this.setUp();
+
+    pc5.multiply(pc1);
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getGreen());
+    assertEquals(128, pc5.getBlue());
+
+    this.setUp();
+
+    pc5.multiply(pc2);
+    assertEquals(0, pc5.getRed());
+    assertEquals(0, pc5.getRed());
+    assertEquals(0, pc5.getRed());
+  }
+
+  @Test
+  public void testScreen() throws Exception {
+    this.setUp();
+
+    pc5.screen(pc1);
+    assertEquals(255, pc5.getRed());
+    assertEquals(255, pc5.getGreen());
+    assertEquals(255, pc5.getBlue());
+
+    this.setUp();
+
+    pc5.screen(pc2);
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getRed());
+    assertEquals(128, pc5.getRed());
+  }
+
+  @Test
   public void getRed() throws Exception {
     this.setUp();
     assertEquals(255, pc1.getRed());

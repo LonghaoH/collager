@@ -260,23 +260,25 @@ public class PixelColor {
 
   public void multiply(PixelColor composite) {
     double[] hsl = convertRGBtoHSL(
-            (double) this.red / 255, (double) this.green / 255, (double) this.blue / 255);
+            (double) this.red / 255.0,
+            (double) this.green / 255.0,
+            (double) this.blue / 255.0);
     double h = hsl[0];
     double s = hsl[1];
     double l = hsl[2];
 
     double[] dHdSdL = convertRGBtoHSL(
-            (double) composite.getRed() / 255,
-            (double) composite.getGreen() / 255,
-            (double) composite.getBlue() / 255);
+            (double) composite.getRed() / 255.0,
+            (double) composite.getGreen() / 255.0,
+            (double) composite.getBlue() / 255.0);
     double dH = dHdSdL[0];
     double dS = dHdSdL[1];
     double dL = dHdSdL[2];
 
     double[] rgbNew = convertHSLtoRGB(h, s,l * dL);
-    this.red = (int) rgbNew[0] * 255;
-    this.green = (int) rgbNew[1] * 255;
-    this.blue = (int) rgbNew[2] * 255;
+    this.red = (int) rgbNew[0];
+    this.green = (int) rgbNew[1];
+    this.blue = (int) rgbNew[2];
   }
 
   public void screen(PixelColor composite) {
@@ -295,9 +297,9 @@ public class PixelColor {
     double dL = dHdSdL[2];
 
     double[] rgbNew = convertHSLtoRGB(h, s,(1 - ((1 - l) * (1 - dL))));
-    this.red = (int) rgbNew[0] * 255;
-    this.green = (int) rgbNew[1] * 255;
-    this.blue = (int) rgbNew[2] * 255;
+    this.red = (int) rgbNew[0];
+    this.green = (int) rgbNew[1];
+    this.blue = (int) rgbNew[2];
   }
 
   /**
