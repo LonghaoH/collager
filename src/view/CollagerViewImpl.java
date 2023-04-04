@@ -1,8 +1,18 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * This class represents an implementation of the Collager view.
@@ -33,12 +43,13 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   private JMenuItem intensity;
   private JMenuItem luma;
   private JPanel imagePanel;
+  private JLabel imageLabel;
 
   @Override
   public void createMainFrame() throws UnsupportedLookAndFeelException, ClassNotFoundException,
           InstantiationException, IllegalAccessException {
     setTitle("Collager");
-    setSize(800, 800);
+    setSize(800, 600);
 
     mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout(mainPanel.getWidth(), mainPanel.getHeight()));
@@ -110,6 +121,8 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
     darken.add(value);
     darken.add(intensity);
     darken.add(luma);
+
+    mainPanel.add(menuBar, BorderLayout.NORTH);
   }
 
   @Override
@@ -117,6 +130,69 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
     //panel for displaying the current composite
     imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
-    mainPanel.add(imagePanel, BorderLayout.LINE_START);
+    mainPanel.add(imagePanel, BorderLayout.CENTER);
+
+    imageLabel = new JLabel();
+    JScrollPane scrollPane = new JScrollPane(imageLabel);
+    scrollPane.setPreferredSize(new Dimension(500, 500));
+    imagePanel.add(imageLabel);
+  }
+
+  @Override
+  public void initializeView() throws UnsupportedLookAndFeelException, ClassNotFoundException,
+          InstantiationException, IllegalAccessException {
+    this.createMainFrame();
+    this.createMenuBar();
+    this.createImagePanel();
+
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setVisible(true);
+  }
+
+  @Override
+  public void setActionListeners(ActionListener listener) {
+    fileNewProject.setActionCommand("new-project");
+    fileNewProject.addActionListener(listener);
+
+    fileOpen.setActionCommand("load-project");
+    fileOpen.addActionListener(listener);
+
+    saveImage.setActionCommand("save-image");
+    saveImage.addActionListener(listener);
+
+    saveProject.setActionCommand("save-project");
+    saveProject.addActionListener(listener);
+
+    addImage.setActionCommand("add-image-to-layer");
+    addImage.addActionListener(listener);
+
+    addLayer.setActionCommand("add-layer");
+    addLayer.addActionListener(listener);
+
+    redCom.setActionCommand("set-filter");
+    redCom.addActionListener(listener);
+    greenCom.setActionCommand("set-filter");
+    greenCom.addActionListener(listener);
+    blueCom.setActionCommand("set-filter");
+    blueCom.addActionListener(listener);
+
+    value.setActionCommand("set-filter");
+    value.addActionListener(listener);
+    value.setActionCommand("set-filter");
+    value.addActionListener(listener);
+    value.setActionCommand("set-filter");
+    value.addActionListener(listener);
+  }
+
+  /**
+   * Main method to run this view implementation.
+   * Just a helper method to test if view runs and works as intended.
+   */
+  public static void main(String[] args) throws UnsupportedLookAndFeelException,
+          ClassNotFoundException, InstantiationException, IllegalAccessException {
+    CollagerViewImpl testView = new CollagerViewImpl();
+    testView.initializeView();
+    testView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    testView.setVisible(true);
   }
 }

@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -28,4 +30,17 @@ public interface CollagerView {
    * being worked on.
    */
   void createImagePanel();
+
+  /**
+   * Initialize the view.
+   */
+  void initializeView() throws UnsupportedLookAndFeelException, ClassNotFoundException,
+          InstantiationException, IllegalAccessException;
+
+  /**
+   * Sets the action listeners for all menubar options.
+   *
+   * @param listener the input action listener.
+   */
+  void setActionListeners(ActionListener listener);
 }
