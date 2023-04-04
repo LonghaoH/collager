@@ -129,16 +129,24 @@ public class LayerTest {
       }
     }
     layer.addImage(
-            "C:\\Users\\jdhoo\\Documents\\IntelliJ\\Collager\\utils\\purple50x50.ppm",
+            "C:\\Users\\JesseGaming\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm",
             0, 0);
 
-    assertEquals(168, layer.getLayerImage()[50][50].getRed());
-    assertEquals(91, layer.getLayerImage()[50][50].getGreen());
-    assertEquals(188, layer.getLayerImage()[50][50].getBlue());
+    assertEquals(168, layer.getLayerImage()[49][49].getRed());
+    assertEquals(91, layer.getLayerImage()[49][49].getGreen());
+    assertEquals(188, layer.getLayerImage()[49][49].getBlue());
 
-    assertNotEquals(168, layer.getLayerImage()[99][99].getRed());
-    assertNotEquals(91, layer.getLayerImage()[99][99].getGreen());
-    assertNotEquals(188, layer.getLayerImage()[99][99].getBlue());
+    assertNotEquals(168, layer.getLayerImage()[50][50].getRed());
+    assertNotEquals(91, layer.getLayerImage()[50][50].getGreen());
+    assertNotEquals(188, layer.getLayerImage()[50][50].getBlue());
+
+    try {
+      layer.addImage(
+              "C:\\Users\\JesseGaming\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm",
+              75, 75);
+    } catch(ArrayIndexOutOfBoundsException e) {
+      fail("Should not be able to go past borders");
+    }
   }
 
   @Test

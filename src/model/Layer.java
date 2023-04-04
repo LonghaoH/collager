@@ -130,19 +130,14 @@ public class Layer implements ILayer {
     int imageHeight = CollagerUtil.getHeight(imageName);
     int imageWidth = CollagerUtil.getWidth(imageName);
 
-    int i = yPos;
-    int k = xPos;
-
-    for (int j = 0; j < imageHeight; j++) {
-      for (int m = 0; m < imageWidth; m++) {
-        if (i >= this.height || k >= this.width) {
+    for (int j = yPos; j < imageHeight + yPos; j++) {
+      for (int m = xPos; m < imageWidth + xPos; m++) {
+        if(j >= this.height || m >= this.width) {
           break;
         }
-        PixelColor pix = image[j][m];
+        PixelColor pix = image[j - yPos][m - xPos];
         pix = new PixelColor(pix.getRed(), pix.getGreen(), pix.getBlue(), this.maxVal);
-        this.layerImage[i][k] = pix;
-        i++;
-        k++;
+        this.layerImage[j][m] = pix;
       }
     }
 
