@@ -169,7 +169,19 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
     addLayer.setActionCommand("add-layer");
     addLayer.addActionListener(listener);
 
-    
+    redCom.setActionCommand("set-filter");
+    redCom.addActionListener(listener);
+    greenCom.setActionCommand("set-filter");
+    greenCom.addActionListener(listener);
+    blueCom.setActionCommand("set-filter");
+    blueCom.addActionListener(listener);
+
+    value.setActionCommand("set-filter");
+    value.addActionListener(listener);
+    value.setActionCommand("set-filter");
+    value.addActionListener(listener);
+    value.setActionCommand("set-filter");
+    value.addActionListener(listener);
   }
 
   /**
