@@ -12,8 +12,11 @@ import java.util.Scanner;
 
 import model.AbstractCollager;
 import model.CollagerPPM;
+import model.CollagerUtil;
+import model.PixelColor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -105,6 +108,52 @@ public class ControllerFileTests {
 
   @Test
   public void testSaveImage() {
+    this.setUp();
+    controller = new CollagerControllerImpl(throwaway, new StringReader(
+            "new-project 100 100 " +
+                    "add-layer purple " +
+                    "add-image-to-layer purple " +
+                    "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm 0 0 " +
+                    "save-image " +
+                    "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm")
+            , collager);
 
+    //tests to see if the file was created properly
+    File file = new File
+            ("C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm");
+    file.delete();
+    assertFalse(file.exists());
+
+    try {
+      controller.run();
+
+      assertTrue(file.exists());
+
+      PixelColor[][] image= CollagerUtil.readPPM(
+              "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm");
+
+      assertEquals(100,
+              CollagerUtil.getHeight(
+                      "C:\\Users\\jdhoo\\Documents\\GitHub\\" +
+                              "collager\\utils\\purple100x100.ppm"));
+
+      assertEquals(100,
+              CollagerUtil.getWidth(
+                      "C:\\Users\\jdhoo\\Documents\\GitHub\\" +
+                              "collager\\utils\\purple100x100.ppm"));
+
+      //tests the image saves properly
+      for(int i = 0; i < 50; i++) {
+        for(int k = 0; k < 50; k++) {
+          assertEquals(168, image[i][k].getRed());
+          assertEquals(91, image[i][k].getGreen());
+          assertEquals(188, image[i][k].getBlue());
+          assertEquals(255, image[i][k].getAlpha());
+        }
+      }
+
+    } catch (IOException e) {
+      throw new IllegalArgumentException("invalid input.");
+    }
   }
 }
