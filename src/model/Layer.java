@@ -139,6 +139,7 @@ public class Layer implements ILayer {
           break;
         }
         PixelColor pix = image[j][m];
+        pix = new PixelColor(pix.getRed(), pix.getGreen(), pix.getBlue(), this.maxVal);
         this.layerImage[i][k] = pix;
         i++;
         k++;

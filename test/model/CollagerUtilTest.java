@@ -62,6 +62,6 @@ public class CollagerUtilTest {
     assertEquals(5, collager.getWidth());
     assertEquals(5, collager.getHeight());
     assertEquals(255, collager.getMaxVal());
-    assertEquals(1, collager.getLayers().size());
+    assertEquals(2, collager.getLayers().size());
   }
 }
