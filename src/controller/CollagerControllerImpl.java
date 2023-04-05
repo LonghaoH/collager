@@ -256,7 +256,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         }
         currentLayer = currentCollager.getLayers().get(0);
         layers.put("currentLayer", currentLayer);
-        //view.updateComposite(currentLayer.getLayerImage());
+        view.updateComposite(currentLayer.getLayerImage());
       default:
         break;
     }
