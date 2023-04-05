@@ -253,7 +253,11 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         }
         currentLayer = currentCollager.getLayers().get(0);
         layers.put("currentLayer", currentLayer);
+<<<<<<< Updated upstream
         //view.updateComposite(currentLayer.getLayerImage());
+=======
+        
+>>>>>>> Stashed changes
       default:
         break;
     }
