@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 /**
@@ -173,5 +174,20 @@ public class Layer implements ILayer {
       }
     }
     this.filter = filType;
+  }
+
+  @Override
+  public BufferedImage convertToBuffered() {
+    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        int r = layerImage[i][j].getRed();
+        int g = layerImage[i][j].getGreen();
+        int b = layerImage[i][j].getBlue();
+        int rgb = (r << 16) | (g << 8) | b;
+        image.setRGB(j, i, rgb);
+      }
+    }
+    return image;
   }
 }

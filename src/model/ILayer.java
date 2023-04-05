@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.image.BufferedImage;
+
 public interface ILayer {
   /**
    * Returns the name of the layer.
@@ -81,4 +83,11 @@ public interface ILayer {
    * @param compImage the image composite of all the layers below this
    */
   void filterBlend(String filType, PixelColor[][] compImage);
+
+  /**
+   * Converts the current layer to a BufferedImage.
+   *
+   * @return a BufferedImage.
+   */
+  BufferedImage convertToBuffered();
 }
