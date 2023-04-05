@@ -33,7 +33,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   public void createMainFrame() throws UnsupportedLookAndFeelException, ClassNotFoundException,
           InstantiationException, IllegalAccessException {
     setTitle("Collager");
-    setSize(800, 600);
+    setSize(1000, 600);
 
     mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout(mainPanel.getWidth(), mainPanel.getHeight()));
@@ -80,7 +80,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   public void createImagePanel() {
     imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
-    mainPanel.add(imagePanel, BorderLayout.CENTER);
+    mainPanel.add(imagePanel, BorderLayout.LINE_START);
 
     imageLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(imageLabel);
@@ -92,11 +92,11 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   public void createLayerPanel() {
     layerPanel = new JPanel();
     layerPanel.setBorder(BorderFactory.createTitledBorder("Layers:"));
-    mainPanel.add(layerPanel, BorderLayout.EAST);
+    mainPanel.add(layerPanel, BorderLayout.LINE_END);
 
     layerLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(layerLabel);
-    scrollPane.setPreferredSize(new Dimension(500, 500));
+    scrollPane.setPreferredSize(new Dimension(200, 500));
     layerPanel.add(layerLabel);
   }
 
