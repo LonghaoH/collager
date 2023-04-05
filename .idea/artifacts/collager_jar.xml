@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="collager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/collager_jar</output-path>
+    <root id="archive" name="collager.jar">
+      <element id="module-output" name="collager" />
+    </root>
+  </artifact>
+</component>
