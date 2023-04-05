@@ -32,6 +32,11 @@ public interface CollagerView {
   void createImagePanel();
 
   /**
+   * Creates a panel for displaying the list of layers in the current project.
+   */
+  void createLayerPanel();
+
+  /**
    * Initialize the view.
    */
   void initializeView() throws UnsupportedLookAndFeelException, ClassNotFoundException,

@@ -44,6 +44,8 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   private JMenuItem luma;
   private JPanel imagePanel;
   private JLabel imageLabel;
+  private JPanel layerPanel;
+  private JLabel layerLabel;
 
   @Override
   public void createMainFrame() throws UnsupportedLookAndFeelException, ClassNotFoundException,
@@ -127,10 +129,9 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
   @Override
   public void createImagePanel() {
-    //panel for displaying the current composite
     imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
-    mainPanel.add(imagePanel, BorderLayout.CENTER);
+    mainPanel.add(imagePanel, BorderLayout.WEST);
 
     imageLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(imageLabel);
@@ -139,11 +140,24 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   }
 
   @Override
+  public void createLayerPanel() {
+    layerPanel = new JPanel();
+    layerPanel.setBorder(BorderFactory.createTitledBorder("Layers:"));
+    mainPanel.add(layerPanel, BorderLayout.EAST);
+
+    layerLabel = new JLabel();
+    JScrollPane scrollPane = new JScrollPane(layerLabel);
+    scrollPane.setPreferredSize(new Dimension(500, 500));
+    layerPanel.add(layerLabel);
+  }
+
+  @Override
   public void initializeView() throws UnsupportedLookAndFeelException, ClassNotFoundException,
           InstantiationException, IllegalAccessException {
     this.createMainFrame();
     this.createMenuBar();
     this.createImagePanel();
+    this.createLayerPanel();
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
