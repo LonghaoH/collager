@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -11,6 +12,9 @@ import javax.swing.*;
 
 import model.AbstractCollager;
 import model.CollagerUtil;
+import model.ICollager;
+import model.IFilter;
+import model.ILayer;
 import model.Layer;
 import model.PixelColor;
 import view.CollagerView;
@@ -24,6 +28,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   private Readable input;
   private AbstractCollager currentCollager;
   private CollagerView view;
+  private HashMap<String, ILayer> layers;
 
   /**
    * Constructor: Initializes the controller.
@@ -45,6 +50,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   public CollagerControllerImpl(Appendable appendable, CollagerView view) {
     this.appendable = Objects.requireNonNull(appendable);
     this.view = Objects.requireNonNull(view);
+    this.currentCollager = null;
   }
 
   @Override
@@ -221,8 +227,36 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   }
 
   @Override
-  public void actionPerformed(ActionEvent event) {
+  public void actionPerformed(ActionEvent arg0) {
+    JFileChooser fileChooser;
+    Object userPrompts;
+    ILayer currentLayer = null;
+    IFilter filter;
 
+    switch (arg0.getActionCommand()) {
+      case "new-project":
+        int height;
+        int width;
+        userPrompts = JOptionPane.showInputDialog(view.getMainPanel(),
+                "Please enter height and width separated by ','");
+        // assign height and width values
+        String prompt = (String) userPrompts;
+        String[] prompts = prompt.split(",");
+        height = Integer.parseInt(prompts[0]);
+        width = Integer.parseInt(prompts[1]);
+
+        try {
+          currentCollager.newProject(height, width);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "Invalid inputs.",
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        currentLayer = currentCollager.getLayers().get(0);
+        layers.put("currentLayer", currentLayer);
+        view.updateComposite(currentLayer.getLayerImage());
+      default:
+        break;
+    }
   }
 
   @Override

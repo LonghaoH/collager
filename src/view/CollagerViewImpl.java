@@ -1,18 +1,10 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 /**
  * This class represents an implementation of the Collager view.
@@ -148,6 +140,21 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
     editDarken.setActionCommand("darken");
     editDarken.addActionListener(listener);
+  }
+
+  @Override
+  public JPanel getMainPanel() {
+    return this.mainPanel;
+  }
+
+  @Override
+  public void updateComposite(Image image) {
+    this.imageLabel.setIcon(new ImageIcon(Objects.requireNonNull(image)));
+  }
+
+  @Override
+  public void updateLayer(Image image) {
+    this.layerLabel.setIcon(new ImageIcon(Objects.requireNonNull(image)));
   }
 
   /**

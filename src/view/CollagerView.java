@@ -1,7 +1,9 @@
 package view;
 
+import java.awt.*;
 import java.awt.event.ActionListener;
 
+import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -48,4 +50,25 @@ public interface CollagerView {
    * @param listener the input action listener.
    */
   void setActionListeners(ActionListener listener);
+
+  /**
+   * Gets the main panel of the view.
+   *
+   * @return the main panel.
+   */
+  JPanel getMainPanel();
+
+  /**
+   * Update the current composite.
+   *
+   * @param image the image of the composite.
+   */
+  void updateComposite(Image image);
+
+  /**
+   * Update the layers panel.
+   *
+   * @param image the image of the layer panel.
+   */
+  void updateLayer(Image image);
 }
