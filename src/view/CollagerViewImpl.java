@@ -33,11 +33,10 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   public void createMainFrame() throws UnsupportedLookAndFeelException, ClassNotFoundException,
           InstantiationException, IllegalAccessException {
     setTitle("Collager");
-    setSize(1000, 600);
+    setSize(800, 600);
 
     mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout(mainPanel.getWidth(), mainPanel.getHeight()));
-    //adds scroll bars around the main panel
     mainScrollPane = new JScrollPane(mainPanel);
     add(mainScrollPane);
   }
@@ -80,24 +79,24 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   public void createImagePanel() {
     imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
-    mainPanel.add(imagePanel, BorderLayout.LINE_START);
-
     imageLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(imageLabel);
     scrollPane.setPreferredSize(new Dimension(500, 500));
-    imagePanel.add(imageLabel);
+    imagePanel.add(scrollPane);
+
+    mainPanel.add(imagePanel, BorderLayout.LINE_START);
   }
 
   @Override
   public void createLayerPanel() {
     layerPanel = new JPanel();
     layerPanel.setBorder(BorderFactory.createTitledBorder("Layers:"));
-    mainPanel.add(layerPanel, BorderLayout.LINE_END);
-
     layerLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(layerLabel);
     scrollPane.setPreferredSize(new Dimension(200, 500));
-    layerPanel.add(layerLabel);
+    layerPanel.add(scrollPane);
+
+    mainPanel.add(layerPanel, BorderLayout.LINE_END);
   }
 
   @Override
@@ -155,17 +154,5 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   @Override
   public void updateLayer(Image image) {
     this.layerLabel.setIcon(new ImageIcon(Objects.requireNonNull(image)));
-  }
-
-  /**
-   * Main method to run this view implementation.
-   * Just a helper method to test if view runs and works as intended.
-   */
-  public static void main(String[] args) throws UnsupportedLookAndFeelException,
-          ClassNotFoundException, InstantiationException, IllegalAccessException {
-    CollagerViewImpl testView = new CollagerViewImpl();
-    testView.initializeView();
-    testView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    testView.setVisible(true);
   }
 }
