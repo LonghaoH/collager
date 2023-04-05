@@ -1,23 +1,29 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
+import javax.swing.*;
+
 import model.AbstractCollager;
 import model.CollagerUtil;
 import model.Layer;
 import model.PixelColor;
+import view.CollagerView;
 
 /**
  * Represents an implementation of the collager controller interface. It accepts commands from
  * the users, passes it to the model to be processed, and outputs messages for users to view.
  */
-public class CollagerControllerImpl implements CollagerController {
+public class CollagerControllerImpl implements CollagerController, ActionListener {
   private final Appendable appendable;
-  private final Readable input;
+  private Readable input;
   private AbstractCollager currentCollager;
+  private CollagerView view;
 
   /**
    * Constructor: Initializes the controller.
@@ -28,6 +34,17 @@ public class CollagerControllerImpl implements CollagerController {
     this.appendable = Objects.requireNonNull(appendable);
     this.input = Objects.requireNonNull(input);
     this.currentCollager = collager;
+  }
+
+  /**
+   * Constructor: Initializes the controller with a given view.
+   *
+   * @param appendable an appendable object for building messages.
+   * @param view a GUI view of the collager.
+   */
+  public CollagerControllerImpl(Appendable appendable, CollagerView view) {
+    this.appendable = Objects.requireNonNull(appendable);
+    this.view = Objects.requireNonNull(view);
   }
 
   @Override
@@ -194,7 +211,23 @@ public class CollagerControllerImpl implements CollagerController {
           break;
       }
     }
+  }
 
+  @Override
+  public void runGUIMode() throws UnsupportedLookAndFeelException, ClassNotFoundException,
+          InstantiationException, IllegalAccessException {
+    this.view.initializeView();
+    this.view.setActionListeners(this);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent event) {
+
+  }
+
+  @Override
+  public void runScriptMode(String filePath) {
+    ;
   }
 
   /**
