@@ -25,23 +25,13 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   private JMenu edit;
   private JMenuItem fileNewProject;
   private JMenuItem fileOpen;
-  private JMenuItem fileSave;
-  private JMenuItem saveImage;
-  private JMenuItem saveProject;
-  private JMenuItem editAdd;
-  private JMenuItem editSetFilter;
-  private JMenuItem addImage;
-  private JMenuItem addLayer;
-  private JMenuItem normal;
-  private JMenuItem colComponent;
-  private JMenuItem brighten;
-  private JMenuItem darken;
-  private JMenuItem redCom;
-  private JMenuItem greenCom;
-  private JMenuItem blueCom;
-  private JMenuItem value;
-  private JMenuItem intensity;
-  private JMenuItem luma;
+  private JMenuItem fileSaveImage;
+  private JMenuItem fileSaveProject;
+  private JMenuItem editAddImage;
+  private JMenuItem editAddLayer;
+  private JMenuItem editColComponent;
+  private JMenuItem editBrighten;
+  private JMenuItem editDarken;
   private JPanel imagePanel;
   private JLabel imageLabel;
   private JPanel layerPanel;
@@ -72,57 +62,24 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
     //components for file menu
     fileNewProject = new JMenuItem("New Project");
     fileOpen = new JMenuItem("Open");
-    fileSave = new JMenuItem("Save...");
+    fileSaveImage = new JMenuItem("Save Image");
+    fileSaveProject = new JMenuItem("Save Project");
     file.add(fileNewProject);
     file.add(fileOpen);
-    file.add(fileSave);
-
-    //components for the save menu item
-    saveImage = new JMenuItem("Save Image");
-    saveProject = new JMenuItem("Save Project");
-    fileSave.add(saveImage);
-    fileSave.add(saveProject);
+    file.add(fileSaveImage);
+    file.add(fileSaveProject);
 
     //components for edit menu
-    editAdd = new JMenuItem("Add...");
-    editSetFilter = new JMenuItem("Set Filter...");
-    edit.add(editAdd);
-    edit.add(editSetFilter);
-
-    //components for the add menu item
-    addImage = new JMenuItem("Add Image");
-    addLayer = new JMenuItem("Add Layer");
-    editAdd.add(addImage);
-    editAdd.add(addLayer);
-
-    //components for the set filter menu item
-    normal = new JMenuItem("Normal");
-    colComponent = new JMenuItem("Color Component...");
-    brighten = new JMenuItem("Brighten...");
-    darken = new JMenuItem("Darken...");
-    editSetFilter.add(normal);
-    editSetFilter.add(colComponent);
-    editSetFilter.add(brighten);
-    editSetFilter.add(darken);
-
-    //components for the color components menu item
-    redCom = new JMenuItem("Red");
-    greenCom = new JMenuItem("Green");
-    blueCom = new JMenuItem("Blue");
-    colComponent.add(redCom);
-    colComponent.add(greenCom);
-    colComponent.add(blueCom);
-
-    //components for the brighten and darken menu item
-    value = new JMenuItem("Value");
-    intensity = new JMenuItem("Intensity");
-    luma = new JMenuItem("Luma");
-    brighten.add(value);
-    brighten.add(intensity);
-    brighten.add(luma);
-    darken.add(value);
-    darken.add(intensity);
-    darken.add(luma);
+    editAddImage = new JMenuItem("Add Image");
+    editAddLayer = new JMenuItem("Add Layer");
+    editColComponent = new JMenuItem("Color Components");
+    editBrighten = new JMenuItem("Brighten");
+    editDarken = new JMenuItem("Darken");
+    edit.add(editAddImage);
+    edit.add(editAddLayer);
+    edit.add(editColComponent);
+    edit.add(editBrighten);
+    edit.add(editDarken);
 
     mainPanel.add(menuBar, BorderLayout.NORTH);
   }
@@ -131,7 +88,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   public void createImagePanel() {
     imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
-    mainPanel.add(imagePanel, BorderLayout.WEST);
+    mainPanel.add(imagePanel, BorderLayout.CENTER);
 
     imageLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(imageLabel);
@@ -168,34 +125,29 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
     fileNewProject.setActionCommand("new-project");
     fileNewProject.addActionListener(listener);
 
-    fileOpen.setActionCommand("load-project");
+    fileOpen.setActionCommand("open");
     fileOpen.addActionListener(listener);
 
-    saveImage.setActionCommand("save-image");
-    saveImage.addActionListener(listener);
+    fileSaveImage.setActionCommand("save-image");
+    fileSaveImage.addActionListener(listener);
 
-    saveProject.setActionCommand("save-project");
-    saveProject.addActionListener(listener);
+    fileSaveProject.setActionCommand("save-project");
+    fileSaveProject.addActionListener(listener);
 
-    addImage.setActionCommand("add-image-to-layer");
-    addImage.addActionListener(listener);
+    editAddImage.setActionCommand("add-image");
+    editAddImage.addActionListener(listener);
 
-    addLayer.setActionCommand("add-layer");
-    addLayer.addActionListener(listener);
+    editAddLayer.setActionCommand("add-layer");
+    editAddLayer.addActionListener(listener);
 
-    redCom.setActionCommand("set-filter");
-    redCom.addActionListener(listener);
-    greenCom.setActionCommand("set-filter");
-    greenCom.addActionListener(listener);
-    blueCom.setActionCommand("set-filter");
-    blueCom.addActionListener(listener);
+    editColComponent.setActionCommand("col-component");
+    editColComponent.addActionListener(listener);
 
-    value.setActionCommand("set-filter");
-    value.addActionListener(listener);
-    value.setActionCommand("set-filter");
-    value.addActionListener(listener);
-    value.setActionCommand("set-filter");
-    value.addActionListener(listener);
+    editBrighten.setActionCommand("brighten");
+    editBrighten.addActionListener(listener);
+
+    editDarken.setActionCommand("darken");
+    editDarken.addActionListener(listener);
   }
 
   /**
