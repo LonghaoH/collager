@@ -2,8 +2,11 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
@@ -261,7 +264,25 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
 
   @Override
   public void runScriptMode(String filePath) {
-    ;
+    Scanner sc;
+    StringBuilder builder = new StringBuilder();
+
+    try {
+      sc = new Scanner(new FileInputStream(filePath));
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File " + filePath + " not found!");
+    }
+
+    while (sc.hasNextLine()) {
+      String s = sc.nextLine();
+      if (s.charAt(0) != '#') {
+        builder.append(s + System.lineSeparator());
+      }
+    }
+
+    String input = builder.toString();
+
+    new CollagerControllerImpl(this.appendable, new StringReader(input), this.currentCollager);
   }
 
   /**
