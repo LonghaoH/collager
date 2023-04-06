@@ -385,7 +385,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                 "What color components do you want to apply to the current layer?",
                 "Color Components", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, colOptions, colOptions[0]);
-
+        view.refresh();
         currentLayer = layers.get("currentLayer");
         switch ((int) userPrompts) {
           case 0:

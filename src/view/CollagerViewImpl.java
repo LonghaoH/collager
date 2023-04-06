@@ -1,8 +1,6 @@
 package view;
 
-import java.awt.Image;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Objects;
@@ -81,22 +79,21 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
     imageLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(imageLabel);
-    scrollPane.setPreferredSize(new Dimension(700, 700));
+    scrollPane.setPreferredSize(new Dimension(900, 600));
     imagePanel.add(scrollPane);
 
-    mainPanel.add(imagePanel, BorderLayout.LINE_START);
+    mainPanel.add(imagePanel, BorderLayout.CENTER);
   }
 
   @Override
   public void createLayerPanel() {
     layerPanel = new JPanel();
     layerPanel.setBorder(BorderFactory.createTitledBorder("Layers:"));
-    layerLabel = new JLabel();
-    JScrollPane scrollPane = new JScrollPane(layerLabel);
-    scrollPane.setPreferredSize(new Dimension(200, 700));
+    JScrollPane scrollPane = new JScrollPane(newLayer);
+    scrollPane.setPreferredSize(new Dimension(0, 50));
     layerPanel.add(scrollPane);
 
-    mainPanel.add(layerPanel, BorderLayout.LINE_END);
+    mainPanel.add(layerPanel, BorderLayout.SOUTH);
   }
 
   @Override
@@ -157,14 +154,14 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   @Override
   public void updateLayer(String layerName) {
     newLayer = new JButton(layerName);
-    this.layerLabel.add(newLayer);
-    repaint();
-    revalidate();
+    this.layerPanel.add(newLayer);
+    this.layerPanel.repaint();
+    this.layerPanel.revalidate();
   }
 
   @Override
   public void refresh() {
-    repaint();
     revalidate();
+    repaint();
   }
 }
