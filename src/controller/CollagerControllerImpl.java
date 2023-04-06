@@ -325,11 +325,11 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "add-layer":
         break;
       case "col-component":
-        String[] options = {"Red", "Green", "Blue"};
+        String[] colOptions = {"Red", "Green", "Blue"};
         userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
                 "What color components do you want to apply to the current layer?",
                 "Color Components", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                null, options, options[0]);
+                null, colOptions, colOptions[0]);
 
         currentLayer = layers.get("currentLayer");
         switch ((int) userPrompts) {
@@ -373,8 +373,100 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(colComponentImage.convertToBuffered());
         break;
       case "brighten":
+        String[] brightenOptions = {"Value", "Intensity", "Luma"};
+        userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
+                "How would you like to brighten your images?",
+                "Options", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, brightenOptions, brightenOptions[0]);
+
+        currentLayer = layers.get("currentLayer");
+        switch ((int) userPrompts) {
+          case 0:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "brighten-value");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 1:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "brighten-intensity");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 2:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "brighten-luma");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          default:
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
+        ILayer brightenImage = null;
+        try {
+          brightenImage = this.getColLayer(currentLayer);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                  "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        layers.replace("currentLayer", brightenImage);
+        view.updateComposite(brightenImage.convertToBuffered());
         break;
       case "darken":
+        String[] darkenOptions = {"Value", "Intensity", "Luma"};
+        userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
+                "How would you like to darken your images?",
+                "Options", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, darkenOptions, darkenOptions[0]);
+
+        currentLayer = layers.get("currentLayer");
+        switch ((int) userPrompts) {
+          case 0:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "darken-value");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 1:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "darken-intensity");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 2:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "darken-luma");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          default:
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
+        ILayer darkenImage = null;
+        try {
+          darkenImage = this.getColLayer(currentLayer);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                  "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        layers.replace("currentLayer", darkenImage);
+        view.updateComposite(darkenImage.convertToBuffered());
         break;
       default:
         break;
