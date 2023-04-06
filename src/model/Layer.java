@@ -177,6 +177,11 @@ public class Layer implements ILayer {
   }
 
   @Override
+  public Layer getLayer() {
+    return this;
+  }
+
+  @Override
   public BufferedImage convertToBuffered() {
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     for (int i = 0; i < height; i++) {

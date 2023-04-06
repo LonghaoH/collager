@@ -299,11 +299,14 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                 "PPM", "ppm");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+        currentLayer = layers.get("currentLayer");
         if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
           File file = fileChooser.getSelectedFile();
 
           currentLayer.addImage(file.getAbsolutePath(), 0, 0);
-          view.updateComposite(currentLayer.convertToBuffered());
+          ILayer addedImage = currentLayer.getLayer();
+          layers.replace("currentLayer", addedImage);
+          view.updateComposite(addedImage.convertToBuffered());
         } else {
           JOptionPane.showMessageDialog(view.getMainPanel(),
                   "File extension type not supported.",
