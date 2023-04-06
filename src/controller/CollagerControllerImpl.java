@@ -282,6 +282,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         currentLayer = currentCollager.getLayers().get(0);
         layers.put("currentLayer", currentLayer);
         view.updateComposite(currentLayer.convertToBuffered());
+        view.updateLayer(currentLayer.getName());
         break;
       case "open":
         fileChooser = new JFileChooser();
@@ -302,7 +303,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
             layers.put("currentLayer", currentLayer);
           } else {
             currentLayer = currentCollager.getLayers().get(i);
-            layers.put("Layer" + Integer.toString(i), currentLayer);
+            layers.put(currentLayer.getName(), currentLayer);
           }
         }
         view.updateComposite(currentLayer.convertToBuffered());
@@ -366,7 +367,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "add-layer":
         userPrompts = JOptionPane.showInputDialog(view.getMainPanel(),
                 "Please enter layer name:");
-        layers.put("previousLayer", layers.get("currentLayer"));
+        layers.put(layers.get("currentLayer").getName(), layers.get("currentLayer"));
         try {
           currentCollager.addLayer((String) userPrompts);
         } catch (IllegalArgumentException e) {
@@ -376,6 +377,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         currentLayer = currentCollager.getLayers().get(currentCollager.getLayers().size() - 1);
         layers.replace("currentLayer", currentLayer);
         view.updateComposite(currentLayer.convertToBuffered());
+        view.updateLayer(currentLayer.getName());
         break;
       case "col-component":
         String[] colOptions = {"Red", "Green", "Blue", "Difference"};
@@ -545,9 +547,12 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         layers.replace("currentLayer", darkenImage);
         view.updateComposite(darkenImage.convertToBuffered());
         break;
+      case "set-current-layer":
+        break;
       default:
         break;
     }
+    view.refresh();
   }
 
   /**

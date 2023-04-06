@@ -210,4 +210,14 @@ public abstract class AbstractCollager implements ICollager {
   public ArrayList<Layer> getLayers() {
     return this.layers;
   }
+
+  @Override
+  public Layer getLayer(String layerName) throws IllegalArgumentException {
+    for (int i = 0; i < this.getLayers().size(); i++) {
+      if (this.getLayers().get(i).getName().equals(layerName)) {
+        return this.getLayers().get(i);
+      }
+    }
+    throw new IllegalArgumentException("Layer does not exist.");
+  }
 }

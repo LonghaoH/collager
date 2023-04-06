@@ -4,18 +4,10 @@ import java.awt.Image;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Objects;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JLabel;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 /**
  * This class represents an implementation of the Collager view.
@@ -31,8 +23,11 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   private JMenuItem editColComponent;
   private JMenuItem editBrighten;
   private JMenuItem editDarken;
+  private JPanel imagePanel;
+  private JPanel layerPanel;
   private JLabel imageLabel;
   private JLabel layerLabel;
+  private JButton newLayer;
 
   @Override
   public void createMainFrame() throws UnsupportedLookAndFeelException, ClassNotFoundException,
@@ -82,7 +77,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
   @Override
   public void createImagePanel() {
-    JPanel imagePanel = new JPanel();
+    imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
     imageLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(imageLabel);
@@ -94,7 +89,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
   @Override
   public void createLayerPanel() {
-    JPanel layerPanel = new JPanel();
+    layerPanel = new JPanel();
     layerPanel.setBorder(BorderFactory.createTitledBorder("Layers:"));
     layerLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(layerLabel);
@@ -144,6 +139,9 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
     editDarken.setActionCommand("darken");
     editDarken.addActionListener(listener);
+
+//    newLayer.setActionCommand("set-current-layer");
+//    newLayer.addActionListener(listener);
   }
 
   @Override
@@ -157,7 +155,16 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   }
 
   @Override
-  public void updateLayer(Image image) {
-    this.layerLabel.setIcon(new ImageIcon(Objects.requireNonNull(image)));
+  public void updateLayer(String layerName) {
+    newLayer = new JButton(layerName);
+    this.layerLabel.add(newLayer);
+    repaint();
+    revalidate();
+  }
+
+  @Override
+  public void refresh() {
+    repaint();
+    revalidate();
   }
 }
