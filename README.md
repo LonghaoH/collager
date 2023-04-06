@@ -95,8 +95,12 @@ ILayer\
 Layer.\
 
 ### --View--
+CollagerView\
+    - Represents an interactive GUI for the collager program.
 
-    
+CollagerViewImpl\
+    - Creates an interactive GUI, using JSwing
+
 The image "purple50x50.ppm" was created by me and I authorize its use in this project.
 
-Contains code in the ViewPPM class, and RepresentationConverter written by Professor Lucia Nunez, who authorized its use in this project.
+Contains code in the ViewPPM, and RepresentationConverter classes written by Professor Lucia Nunez, who authorized their use in this project.
