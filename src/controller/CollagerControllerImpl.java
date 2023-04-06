@@ -230,6 +230,29 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   }
 
   @Override
+  public void runScriptMode(String filePath) {
+    Scanner sc;
+    StringBuilder builder = new StringBuilder();
+
+    try {
+      sc = new Scanner(new FileInputStream(filePath));
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File " + filePath + " not found!");
+    }
+
+    while (sc.hasNextLine()) {
+      String s = sc.nextLine();
+      if (s.charAt(0) != '#') {
+        builder.append(s + System.lineSeparator());
+      }
+    }
+
+    String input = builder.toString();
+
+    new CollagerControllerImpl(this.appendable, new StringReader(input), this.currentCollager);
+  }
+
+  @Override
   public void actionPerformed(ActionEvent arg0) {
     JFileChooser fileChooser;
     Object userPrompts;
@@ -261,29 +284,6 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       default:
         break;
     }
-  }
-
-  @Override
-  public void runScriptMode(String filePath) {
-    Scanner sc;
-    StringBuilder builder = new StringBuilder();
-
-    try {
-      sc = new Scanner(new FileInputStream(filePath));
-    } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File " + filePath + " not found!");
-    }
-
-    while (sc.hasNextLine()) {
-      String s = sc.nextLine();
-      if (s.charAt(0) != '#') {
-        builder.append(s + System.lineSeparator());
-      }
-    }
-
-    String input = builder.toString();
-
-    new CollagerControllerImpl(this.appendable, new StringReader(input), this.currentCollager);
   }
 
   /**
