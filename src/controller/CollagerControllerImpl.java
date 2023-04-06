@@ -2,9 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.AbstractCollager;
 import model.CollagerPPM;
@@ -235,7 +239,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   public void actionPerformed(ActionEvent arg0) {
     JFileChooser fileChooser;
     Object userPrompts;
-    ILayer currentLayer;
+    ILayer currentLayer = new Layer("bleh", 1, 1, 1);
     IFilter filter;
 
     switch (arg0.getActionCommand()) {
@@ -259,6 +263,37 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         currentLayer = currentCollager.getLayers().get(0);
         layers.put("currentLayer", currentLayer);
         view.updateComposite(currentLayer.convertToBuffered());
+        break;
+      case "open":
+        break;
+      case "save-image":
+        break;
+      case "save-project":
+        break;
+      case "add-image":
+        fileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
+                "PPM", "ppm");
+        fileChooser.setFileFilter(fileFilter);
+        userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+        if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
+          File file = fileChooser.getSelectedFile();
+
+          currentLayer.addImage(file.getName(), 0, 0);
+          view.updateComposite(currentLayer.convertToBuffered());
+        } else {
+          JOptionPane.showMessageDialog(view.getMainPanel(),
+                  "File extension type not supported.",
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        break;
+      case "add-layer":
+        break;
+      case "col-component":
+        break;
+      case "brighten":
+        break;
+      case "darken":
         break;
       default:
         break;
