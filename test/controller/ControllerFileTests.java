@@ -46,8 +46,8 @@ public class ControllerFileTests {
       File file = new File("C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\Project");
       assertTrue(file.exists());
 
-      Scanner sc = new Scanner(new FileInputStream
-              ("C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\Project"));
+      Scanner sc = new Scanner(new FileInputStream(
+              "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\Project"));
       StringBuilder builder = new StringBuilder();
       while (sc.hasNextLine()) {
         String s = sc.nextLine();
@@ -118,8 +118,8 @@ public class ControllerFileTests {
             , collager);
 
     //tests to see if the file was created properly
-    File file = new File
-            ("C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm");
+    File file = new File(
+            "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm");
     file.delete();
     assertFalse(file.exists());
 
