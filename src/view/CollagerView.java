@@ -68,7 +68,9 @@ public interface CollagerView {
   /**
    * Update the layers panel.
    *
-   * @param image the image of the layer panel.
+   * @param layerName the layer name of the layer.
    */
-  void updateLayer(Image image);
+  void updateLayer(String layerName);
+
+  void refresh();
 }

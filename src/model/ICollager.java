@@ -78,4 +78,11 @@ public interface ICollager {
    * @return the layers in the collager
    */
   ArrayList<Layer> getLayers();
+
+  /**
+   * Return the specific layer in the current collager, if it exists.
+   *
+   * @return the specific layer.
+   */
+  Layer getLayer(String layerName) throws IllegalArgumentException;
 }
