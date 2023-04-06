@@ -260,7 +260,6 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
     JFileChooser fileChooser;
     Object userPrompts;
     ILayer currentLayer = new Layer("bleh", 1, 1, 1);
-    IFilter filter;
 
     switch (arg.getActionCommand()) {
       case "new-project":
@@ -309,6 +308,14 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "save-image":
+        fileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
+                "PPM", "ppm");
+        fileChooser.setFileFilter(fileFilter);
+        userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+        if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
+          ;
+        }
         break;
       case "save-project":
         fileChooser = new JFileChooser();
@@ -325,7 +332,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         break;
       case "add-image":
         fileChooser = new JFileChooser();
-        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
+        fileFilter = new FileNameExtensionFilter(
                 "PPM", "ppm");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
@@ -371,7 +378,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "col-component":
-        String[] colOptions = {"Red", "Green", "Blue"};
+        String[] colOptions = {"Red", "Green", "Blue", "Difference"};
         userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
                 "What color components do you want to apply to the current layer?",
                 "Color Components", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
@@ -403,6 +410,14 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                       "Error!", JOptionPane.ERROR_MESSAGE);
             }
             break;
+          case 3:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "difference");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
           default:
             JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
                     "Error!", JOptionPane.ERROR_MESSAGE);
@@ -419,7 +434,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(colComponentImage.convertToBuffered());
         break;
       case "brighten":
-        String[] brightenOptions = {"Value", "Intensity", "Luma"};
+        String[] brightenOptions = {"Value", "Intensity", "Luma", "Screen"};
         userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
                 "How would you like to brighten your images?",
                 "Options", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
@@ -451,6 +466,14 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                       "Error!", JOptionPane.ERROR_MESSAGE);
             }
             break;
+          case 3:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "screen");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
           default:
             JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
                     "Error!", JOptionPane.ERROR_MESSAGE);
@@ -467,7 +490,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(brightenImage.convertToBuffered());
         break;
       case "darken":
-        String[] darkenOptions = {"Value", "Intensity", "Luma"};
+        String[] darkenOptions = {"Value", "Intensity", "Luma", "Multiply"};
         userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
                 "How would you like to darken your images?",
                 "Options", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
@@ -494,6 +517,14 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
           case 2:
             try {
               currentCollager.setFilter(currentLayer.getName(), "darken-luma");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 3:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "multiply");
             } catch (IllegalArgumentException e) {
               JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
                       "Error!", JOptionPane.ERROR_MESSAGE);

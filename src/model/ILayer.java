@@ -98,5 +98,5 @@ public interface ILayer {
   /**
    * Sets the filter of the layer.
    */
-  void setFilter(String filter);
+  void setFilterName(String filter);
 }

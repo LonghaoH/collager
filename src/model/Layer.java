@@ -192,7 +192,7 @@ public class Layer implements ILayer {
   }
 
   @Override
-  public void setFilter(String filter) {
+  public void setFilterName(String filter) {
     this.filter = filter;
   }
 }

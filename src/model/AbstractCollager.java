@@ -124,9 +124,19 @@ public abstract class AbstractCollager implements ICollager {
    */
   @Override
   public void setFilter(String layerName, String filterOption) {
-    for (int i = 0; i < this.layers.size(); i++) {
-      if (this.layers.get(i).getName().equals(layerName)) {
-        this.layers.get(i).filter(filterOption);
+    if (filterOption.equals("difference")
+            || filterOption.equals("multiply") || filterOption.equals("screen")) {
+      for (int i = 0; i < this.layers.size(); i++) {
+        if (this.layers.get(i).getName().equals(layerName)) {
+          PixelColor[][] comp = this.getLayersBelow(layerName);
+          this.layers.get(i).filterBlend(filterOption, comp);
+        }
+      }
+    } else {
+      for (int i = 0; i < this.layers.size(); i++) {
+        if (this.layers.get(i).getName().equals(layerName)) {
+          this.layers.get(i).filter(filterOption);
+        }
       }
     }
   }
