@@ -85,13 +85,6 @@ public interface ILayer {
   void filterBlend(String filType, PixelColor[][] compImage);
 
   /**
-   * Return this layer.
-   *
-   * @return this layer.
-   */
-  Layer getLayer();
-
-  /**
    * Converts the current layer to a BufferedImage.
    *
    * @return a BufferedImage.

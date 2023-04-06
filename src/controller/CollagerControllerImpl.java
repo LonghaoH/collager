@@ -303,8 +303,21 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
           File file = fileChooser.getSelectedFile();
 
-          currentLayer.addImage(file.getAbsolutePath(), 0, 0);
-          ILayer addedImage = currentLayer.getLayer();
+          try {
+            currentCollager.addImageToLayer(currentLayer.getName(), file.getAbsolutePath(),
+                    0, 0);
+          } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(view.getMainPanel(), "Invalid action.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+          }
+
+          ILayer addedImage = null;
+          try {
+            addedImage = this.getColLayer(currentLayer);
+          } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+          }
           layers.replace("currentLayer", addedImage);
           view.updateComposite(addedImage.convertToBuffered());
         } else {
@@ -316,6 +329,52 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "add-layer":
         break;
       case "col-component":
+        String[] options = {"Red", "Green", "Blue"};
+        userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
+                "What color components do you want to apply to the current layer?",
+                "Color Components", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+
+        currentLayer = layers.get("currentLayer");
+        switch ((int) userPrompts) {
+          case 0:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "red-component");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 1:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "green-component");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 2:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "blue-component");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          default:
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
+        ILayer colComponentImage = null;
+        try {
+          colComponentImage = this.getColLayer(currentLayer);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                  "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        layers.replace("currentLayer", colComponentImage);
+        view.updateComposite(colComponentImage.convertToBuffered());
         break;
       case "brighten":
         break;
@@ -324,6 +383,21 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       default:
         break;
     }
+  }
+
+  /**
+   * Checks if the given layer is in the collager, if so, return that layer.
+   *
+   * @param layer the given layer
+   * @return the specified layer in the collager.
+   */
+  private Layer getColLayer(ILayer layer) throws IllegalArgumentException {
+    for (int i = 0; i < currentCollager.getLayers().size(); i++) {
+      if (currentCollager.getLayers().get(i).getName().equals(layer.getName())) {
+        return currentCollager.getLayers().get(i);
+      }
+    }
+    throw new IllegalArgumentException("Layer is not in the current collager.");
   }
 
   /**
