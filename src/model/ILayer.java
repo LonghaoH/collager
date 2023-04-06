@@ -2,6 +2,10 @@ package model;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Represents a layer of the collager program. Has a name, layer image, height, width, maximum value
+ * and a filter.
+ */
 public interface ILayer {
   /**
    * Returns the name of the layer.
@@ -85,16 +89,14 @@ public interface ILayer {
   void filterBlend(String filType, PixelColor[][] compImage);
 
   /**
-   * Return this layer.
-   *
-   * @return this layer.
-   */
-  Layer getLayer();
-
-  /**
    * Converts the current layer to a BufferedImage.
    *
    * @return a BufferedImage.
    */
   BufferedImage convertToBuffered();
+
+  /**
+   * Sets the filter of the layer.
+   */
+  void setFilterName(String filter);
 }

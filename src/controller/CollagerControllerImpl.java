@@ -2,25 +2,24 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
-import javax.swing.*;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import model.AbstractCollager;
 import model.CollagerPPM;
 import model.CollagerUtil;
-import model.ICollager;
 import model.IFilter;
 import model.ILayer;
 import model.Layer;
@@ -53,7 +52,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
    * Constructor: Initializes the controller with a given view.
    *
    * @param appendable an appendable object for building messages.
-   * @param view a GUI view of the collager.
+   * @param view       a GUI view of the collager.
    */
   public CollagerControllerImpl(Appendable appendable, CollagerView view) {
     this.appendable = Objects.requireNonNull(appendable);
@@ -101,7 +100,8 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         case "save-project":
           try {
             FileWriter file = new FileWriter("Project");
-            file.write("C1" + "\n" + currentCollager.getWidth() + " " + currentCollager.getHeight()
+            file.write("C1" + "\n" + currentCollager.getWidth() + " "
+                    + currentCollager.getHeight()
                     + "\n" + currentCollager.getMaxVal() + "\n");
             for (int i = 0; i < currentCollager.getLayers().size(); i++) {
               Layer layer = currentCollager.getLayers().get(i);
@@ -110,14 +110,13 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
               for (int k = 0; k < layer.getHeight(); k++) {
                 for (int j = 0; j < layer.getWidth(); j++) {
                   PixelColor pixel = layer.getLayerImage()[k][j];
-                  if(i == currentCollager.getLayers().size() -1 &&
-                          k == layer.getHeight() -1 &&
+                  if (i == currentCollager.getLayers().size() - 1 &&
+                          k == layer.getHeight() - 1 &&
                           j == layer.getWidth() - 1) {
                     file.write(pixel.getRed() + " " + pixel.getGreen() + " "
                             + pixel.getBlue() + " " + pixel.getAlpha());
                     break;
-                  }
-                  else {
+                  } else {
                     file.write(pixel.getRed() + " " + pixel.getGreen() + " "
                             + pixel.getBlue() + " " + pixel.getAlpha() + "\n");
                   }
@@ -166,8 +165,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                   filType.equals("multiply") ||
                   filType.equals("screen")) {
             layerOp.filterBlend(filType, currentCollager.getLayersBelow(layerOp.getName()));
-          }
-          else {
+          } else {
             try {
               layerOp.filter(filType);
             } catch (IllegalArgumentException e) {
@@ -203,12 +201,11 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
 
             for (int i = 0; i < currentCollager.getHeight(); i++) {
               for (int k = 0; k < currentCollager.getWidth(); k++) {
-                if(i == currentCollager.getHeight() - 1 && k == currentCollager.getWidth() - 1) {
+                if (i == currentCollager.getHeight() - 1 && k == currentCollager.getWidth() - 1) {
                   file.write(layerCurrent[i][k].getRed() + " " +
                           layerCurrent[i][k].getGreen() + " " +
                           layerCurrent[i][k].getBlue());
-                }
-                else {
+                } else {
                   file.write(layerCurrent[i][k].getRed() + " " +
                           layerCurrent[i][k].getGreen() + " " +
                           layerCurrent[i][k].getBlue() + "\n");
@@ -259,13 +256,12 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   }
 
   @Override
-  public void actionPerformed(ActionEvent arg0) {
+  public void actionPerformed(ActionEvent arg) {
     JFileChooser fileChooser;
     Object userPrompts;
     ILayer currentLayer = new Layer("bleh", 1, 1, 1);
-    IFilter filter;
 
-    switch (arg0.getActionCommand()) {
+    switch (arg.getActionCommand()) {
       case "new-project":
         int height;
         int width;
@@ -288,14 +284,55 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "open":
+        fileChooser = new JFileChooser();
+        userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+
+        try {
+          File file = fileChooser.getSelectedFile();
+          String path = file.getAbsolutePath();
+          currentCollager = CollagerUtil.readCollager(path);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "Project cannot be loaded.",
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+
+        for (int i = 0; i < currentCollager.getLayers().size(); i++) {
+          if (i == currentCollager.getLayers().size() - 1) {
+            currentLayer = currentCollager.getLayers().get(i);
+            layers.put("currentLayer", currentLayer);
+          } else {
+            currentLayer = currentCollager.getLayers().get(i);
+            layers.put("Layer" + Integer.toString(i), currentLayer);
+          }
+        }
+        view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "save-image":
+        fileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
+                "PPM", "ppm");
+        fileChooser.setFileFilter(fileFilter);
+        userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+        if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
+          ;
+        }
         break;
       case "save-project":
+        fileChooser = new JFileChooser();
+        userPrompts = fileChooser.showSaveDialog(view.getMainPanel());
+
+        try {
+          File file = fileChooser.getSelectedFile();
+          String path = file.getAbsolutePath();
+          currentCollager.saveProject(path);
+        } catch (IOException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "Project cannot be saved.",
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
         break;
       case "add-image":
         fileChooser = new JFileChooser();
-        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
+        fileFilter = new FileNameExtensionFilter(
                 "PPM", "ppm");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
@@ -303,8 +340,21 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
           File file = fileChooser.getSelectedFile();
 
-          currentLayer.addImage(file.getAbsolutePath(), 0, 0);
-          ILayer addedImage = currentLayer.getLayer();
+          try {
+            currentCollager.addImageToLayer(currentLayer.getName(), file.getAbsolutePath(),
+                    0, 0);
+          } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(view.getMainPanel(), "Invalid action.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+          }
+
+          ILayer addedImage = null;
+          try {
+            addedImage = this.getColLayer(currentLayer);
+          } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+          }
           layers.replace("currentLayer", addedImage);
           view.updateComposite(addedImage.convertToBuffered());
         } else {
@@ -314,16 +364,205 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         }
         break;
       case "add-layer":
+        userPrompts = JOptionPane.showInputDialog(view.getMainPanel(),
+                "Please enter layer name:");
+        layers.put("previousLayer", layers.get("currentLayer"));
+        try {
+          currentCollager.addLayer((String) userPrompts);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), e.getMessage(),
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        currentLayer = currentCollager.getLayers().get(currentCollager.getLayers().size() - 1);
+        layers.replace("currentLayer", currentLayer);
+        view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "col-component":
+        String[] colOptions = {"Red", "Green", "Blue", "Difference"};
+        userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
+                "What color components do you want to apply to the current layer?",
+                "Color Components", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, colOptions, colOptions[0]);
+
+        currentLayer = layers.get("currentLayer");
+        switch ((int) userPrompts) {
+          case 0:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "red-component");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 1:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "green-component");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 2:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "blue-component");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 3:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "difference");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          default:
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
+        ILayer colComponentImage = null;
+        try {
+          colComponentImage = this.getColLayer(currentLayer);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                  "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        layers.replace("currentLayer", colComponentImage);
+        view.updateComposite(colComponentImage.convertToBuffered());
         break;
       case "brighten":
+        String[] brightenOptions = {"Value", "Intensity", "Luma", "Screen"};
+        userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
+                "How would you like to brighten your images?",
+                "Options", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, brightenOptions, brightenOptions[0]);
+
+        currentLayer = layers.get("currentLayer");
+        switch ((int) userPrompts) {
+          case 0:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "brighten-value");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 1:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "brighten-intensity");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 2:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "brighten-luma");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 3:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "screen");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          default:
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
+        ILayer brightenImage = null;
+        try {
+          brightenImage = this.getColLayer(currentLayer);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                  "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        layers.replace("currentLayer", brightenImage);
+        view.updateComposite(brightenImage.convertToBuffered());
         break;
       case "darken":
+        String[] darkenOptions = {"Value", "Intensity", "Luma", "Multiply"};
+        userPrompts = JOptionPane.showOptionDialog(view.getMainPanel(),
+                "How would you like to darken your images?",
+                "Options", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, darkenOptions, darkenOptions[0]);
+
+        currentLayer = layers.get("currentLayer");
+        switch ((int) userPrompts) {
+          case 0:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "darken-value");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 1:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "darken-intensity");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 2:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "darken-luma");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          case 3:
+            try {
+              currentCollager.setFilter(currentLayer.getName(), "multiply");
+            } catch (IllegalArgumentException e) {
+              JOptionPane.showMessageDialog(view.getMainPanel(), "Unexpected input.",
+                      "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+          default:
+            JOptionPane.showMessageDialog(view.getMainPanel(), "No selection were made.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+            break;
+        }
+        ILayer darkenImage = null;
+        try {
+          darkenImage = this.getColLayer(currentLayer);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                  "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        layers.replace("currentLayer", darkenImage);
+        view.updateComposite(darkenImage.convertToBuffered());
         break;
       default:
         break;
     }
+  }
+
+  /**
+   * Checks if the given layer is in the collager, if so, return that layer.
+   *
+   * @param layer the given layer
+   * @return the specified layer in the collager.
+   */
+  private Layer getColLayer(ILayer layer) throws IllegalArgumentException {
+    for (int i = 0; i < currentCollager.getLayers().size(); i++) {
+      if (currentCollager.getLayers().get(i).getName().equals(layer.getName())) {
+        return currentCollager.getLayers().get(i);
+      }
+    }
+    throw new IllegalArgumentException("Layer is not in the current collager.");
   }
 
   /**

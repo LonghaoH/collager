@@ -133,7 +133,7 @@ public class Layer implements ILayer {
 
     for (int j = yPos; j < imageHeight + yPos; j++) {
       for (int m = xPos; m < imageWidth + xPos; m++) {
-        if(j >= this.height || m >= this.width) {
+        if (j >= this.height || m >= this.width) {
           break;
         }
         PixelColor pix = image[j - yPos][m - xPos];
@@ -163,7 +163,7 @@ public class Layer implements ILayer {
   /**
    * Applies a blending filter to the layer.
    *
-   * @param filType the name of the type of filter to apply
+   * @param filType   the name of the type of filter to apply
    * @param compImage the image composite of all the layers below this
    */
   public void filterBlend(String filType, PixelColor[][] compImage) {
@@ -174,11 +174,6 @@ public class Layer implements ILayer {
       }
     }
     this.filter = filType;
-  }
-
-  @Override
-  public Layer getLayer() {
-    return this;
   }
 
   @Override
@@ -194,5 +189,10 @@ public class Layer implements ILayer {
       }
     }
     return image;
+  }
+
+  @Override
+  public void setFilterName(String filter) {
+    this.filter = filter;
   }
 }

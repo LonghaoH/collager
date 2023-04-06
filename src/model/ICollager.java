@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,13 @@ public interface ICollager {
    * @throws IllegalArgumentException if width and height are invalid
    */
   void newProject(int height, int width) throws IllegalArgumentException;
+
+  /**
+   * Saves the collager project to the given destination.
+   *
+   * @param destination the destination to save the project to.
+   */
+  void saveProject(String destination) throws IOException;
 
   /**
    * Adds a default layer to the collager.

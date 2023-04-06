@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Scanner;
@@ -18,7 +17,6 @@ import model.PixelColor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Tests the file writing and file saving methods of the controller, save-image, save-project,
@@ -32,7 +30,8 @@ public class ControllerFileTests {
   Appendable throwaway = new StringBuilder();
 
   @Before
-  public void setUp() {collager = new CollagerPPM();
+  public void setUp() {
+    collager = new CollagerPPM();
   }
 
   @Test
@@ -47,8 +46,8 @@ public class ControllerFileTests {
       File file = new File("C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\Project");
       assertTrue(file.exists());
 
-      Scanner sc = new Scanner(new FileInputStream
-              ("C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\Project"));
+      Scanner sc = new Scanner(new FileInputStream(
+              "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\Project"));
       StringBuilder builder = new StringBuilder();
       while (sc.hasNextLine()) {
         String s = sc.nextLine();
@@ -101,7 +100,7 @@ public class ControllerFileTests {
       assertEquals(255, this.collager.getMaxVal());
       assertEquals(1, this.collager.getLayers().size());
       assertEquals("background", this.collager.getLayers().get(0).getName());
-    } catch(IOException e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException("invalid input");
     }
   }
@@ -119,8 +118,8 @@ public class ControllerFileTests {
             , collager);
 
     //tests to see if the file was created properly
-    File file = new File
-            ("C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm");
+    File file = new File(
+            "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm");
     file.delete();
     assertFalse(file.exists());
 
@@ -129,7 +128,7 @@ public class ControllerFileTests {
 
       assertTrue(file.exists());
 
-      PixelColor[][] image= CollagerUtil.readPPM(
+      PixelColor[][] image = CollagerUtil.readPPM(
               "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple100x100.ppm");
 
       assertEquals(100,
@@ -143,8 +142,8 @@ public class ControllerFileTests {
                               "collager\\utils\\purple100x100.ppm"));
 
       //tests the image saves properly
-      for(int i = 0; i < 50; i++) {
-        for(int k = 0; k < 50; k++) {
+      for (int i = 0; i < 50; i++) {
+        for (int k = 0; k < 50; k++) {
           assertEquals(168, image[i][k].getRed());
           assertEquals(91, image[i][k].getGreen());
           assertEquals(188, image[i][k].getBlue());

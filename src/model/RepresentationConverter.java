@@ -8,8 +8,7 @@ package model;
 public class RepresentationConverter {
 
   /**
-   * Converts an RGB representation in the range 0-1 into an HSL
-   * representation where
+   * Converts an RGB representation in the range 0-1 into an HSL representation where.
    * <ul>
    * <li> 0 &lt;= H &lt; 360</li>
    * <li> 0 &lt;= S &lt;= 1</li>
@@ -26,7 +25,8 @@ public class RepresentationConverter {
     double delta = componentMax - componentMin;
 
     double lightness = (componentMax + componentMin) / 2;
-    double hue, saturation;
+    double hue;
+    double saturation;
     if (delta == 0) {
       hue = 0;
       saturation = 0;
@@ -56,7 +56,7 @@ public class RepresentationConverter {
 
 
   /**
-   * Convers an HSL representation where
+   * Converts an HSL representation where.
    * <ul>
    * <li> 0 &lt;= H &lt; 360</li>
    * <li> 0 &lt;= S &lt;= 1</li>
@@ -90,16 +90,4 @@ public class RepresentationConverter {
 
     return lightness - a * Math.max(-1, Math.min(k - 3, Math.min(9 - k, 1)));
   }
-
-  //demo main
-//  public static void main(String[] args) {
-//    RepresentationConverter.convertRGBtoHSL(0.0, 0.0, 0.0);
-//    RepresentationConverter.convertRGBtoHSL(1.0, 1.0, 1.0);
-//    RepresentationConverter.convertRGBtoHSL(1.0, 0.0, 0.0);
-//
-//    RepresentationConverter.convertHSLtoRGB(14.0, 0.813, 0.624);
-//    RepresentationConverter.convertHSLtoRGB(0.0, 1.0, 0.5);
-//    RepresentationConverter.convertHSLtoRGB(0.0, 0.0, 1.0);
-//  }
-
 }

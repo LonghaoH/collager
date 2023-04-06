@@ -70,6 +70,8 @@ public class FilterImpl implements IFilter {
       case "screen":
         this.pixel.screen(comp);
         break;
+      default:
+        throw new IllegalArgumentException("Filter type unknown.");
     }
   }
 }
