@@ -2,7 +2,6 @@ package model;
 
 import java.util.Objects;
 
-import static java.lang.Math.abs;
 import static model.RepresentationConverter.convertHSLtoRGB;
 import static model.RepresentationConverter.convertRGBtoHSL;
 

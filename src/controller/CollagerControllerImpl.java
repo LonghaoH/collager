@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 import model.AbstractCollager;
 import model.CollagerPPM;
 import model.CollagerUtil;
-import model.IFilter;
 import model.ILayer;
 import model.Layer;
 import model.PixelColor;
@@ -314,9 +313,6 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                 "PPM", "ppm");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
-        if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
-          ;
-        }
         break;
       case "save-project":
         fileChooser = new JFileChooser();
