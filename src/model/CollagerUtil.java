@@ -193,7 +193,7 @@ public class CollagerUtil {
         }
       }
 
-      layer.filter(filterName);
+      layer.setFilter(filterName);
 
       collager.layers.add(layer);
     }

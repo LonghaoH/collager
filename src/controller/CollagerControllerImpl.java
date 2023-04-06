@@ -100,7 +100,30 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         case "save-project":
           try {
             FileWriter file = new FileWriter("Project");
-            this.writeFile(file);
+            file.write("C1" + "\n" + currentCollager.getWidth() + " "
+                    + currentCollager.getHeight()
+                    + "\n" + currentCollager.getMaxVal() + "\n");
+            for (int i = 0; i < currentCollager.getLayers().size(); i++) {
+              Layer layer = currentCollager.getLayers().get(i);
+              file.write(layer.getName() + " " +
+                      layer.getFilter() + "\n");
+              for (int k = 0; k < layer.getHeight(); k++) {
+                for (int j = 0; j < layer.getWidth(); j++) {
+                  PixelColor pixel = layer.getLayerImage()[k][j];
+                  if (i == currentCollager.getLayers().size() - 1 &&
+                          k == layer.getHeight() - 1 &&
+                          j == layer.getWidth() - 1) {
+                    file.write(pixel.getRed() + " " + pixel.getGreen() + " "
+                            + pixel.getBlue() + " " + pixel.getAlpha());
+                    break;
+                  } else {
+                    file.write(pixel.getRed() + " " + pixel.getGreen() + " "
+                            + pixel.getBlue() + " " + pixel.getAlpha() + "\n");
+                  }
+                }
+              }
+            }
+            file.close();
           } catch (IOException e) {
             throw new IllegalStateException(e.getMessage());
           }
@@ -262,15 +285,42 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "open":
+        fileChooser = new JFileChooser();
+        userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+
+        try {
+          File file = fileChooser.getSelectedFile();
+          String path = file.getAbsolutePath();
+          currentCollager = CollagerUtil.readCollager(path);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "Project cannot be loaded.",
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+
+        for (int i = 0; i < currentCollager.getLayers().size(); i++) {
+          if (i == currentCollager.getLayers().size() - 1) {
+            currentLayer = currentCollager.getLayers().get(i);
+            layers.put("currentLayer", currentLayer);
+          } else {
+            currentLayer = currentCollager.getLayers().get(i);
+            layers.put("Layer" + Integer.toString(i), currentLayer);
+          }
+        }
+        view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "save-image":
         break;
       case "save-project":
+        fileChooser = new JFileChooser();
+        userPrompts = fileChooser.showSaveDialog(view.getMainPanel());
+
         try {
-          FileWriter file = new FileWriter("Project");
-          this.writeFile(file);
+          File file = fileChooser.getSelectedFile();
+          String path = file.getAbsolutePath();
+          currentCollager.saveProject(path);
         } catch (IOException e) {
-          throw new IllegalStateException(e.getMessage());
+          JOptionPane.showMessageDialog(view.getMainPanel(), "Project cannot be saved.",
+                  "Error!", JOptionPane.ERROR_MESSAGE);
         }
         break;
       case "add-image":
@@ -482,38 +532,6 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       }
     }
     throw new IllegalArgumentException("Layer is not in the current collager.");
-  }
-
-  /**
-   * Writes the current collager information into a file to be saved.
-   *
-   * @param file the provided file to be written into.
-   */
-  private void writeFile(FileWriter file) throws IOException {
-    file.write("C1" + "\n" + currentCollager.getWidth() + " "
-            + currentCollager.getHeight()
-            + "\n" + currentCollager.getMaxVal() + "\n");
-    for (int i = 0; i < currentCollager.getLayers().size(); i++) {
-      Layer layer = currentCollager.getLayers().get(i);
-      file.write(layer.getName() + " " +
-              layer.getFilter() + "\n");
-      for (int k = 0; k < layer.getHeight(); k++) {
-        for (int j = 0; j < layer.getWidth(); j++) {
-          PixelColor pixel = layer.getLayerImage()[k][j];
-          if (i == currentCollager.getLayers().size() - 1 &&
-                  k == layer.getHeight() - 1 &&
-                  j == layer.getWidth() - 1) {
-            file.write(pixel.getRed() + " " + pixel.getGreen() + " "
-                    + pixel.getBlue() + " " + pixel.getAlpha());
-            break;
-          } else {
-            file.write(pixel.getRed() + " " + pixel.getGreen() + " "
-                    + pixel.getBlue() + " " + pixel.getAlpha() + "\n");
-          }
-        }
-      }
-    }
-    file.close();
   }
 
   /**

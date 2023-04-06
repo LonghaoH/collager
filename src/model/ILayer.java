@@ -94,4 +94,9 @@ public interface ILayer {
    * @return a BufferedImage.
    */
   BufferedImage convertToBuffered();
+
+  /**
+   * Sets the filter of the layer.
+   */
+  void setFilter(String filter);
 }

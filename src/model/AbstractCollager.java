@@ -1,6 +1,12 @@
 package model;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents an Abstract Collager Program. Can be used with any Image, and a specified maximum
@@ -37,6 +43,44 @@ public abstract class AbstractCollager implements ICollager {
     this.height = height;
     this.width = width;
     this.layers.add(new Layer("background", height, width, this.maxVal).whiteLayer());
+  }
+
+  @Override
+  public void saveProject(String destination) throws IOException {
+    StringBuilder builder = new StringBuilder();
+    builder.append("C1\n");
+    builder.append(this.width).append(" ");
+    builder.append(this.height).append("\n");
+    builder.append(this.maxVal).append("\n");
+    for (int i = 0; i < this.getLayers().size(); i++) {
+      ILayer layer = this.getLayers().get(i);
+      builder.append(layer.getName()).append(" ");
+      builder.append(layer.getFilter()).append("\n");
+      for (int j = 0; j < layer.getHeight(); j++) {
+        for (int k = 0; k < layer.getWidth(); k++) {
+          PixelColor currentPixel = layer.getLayerImage()[j][k];
+          int red = currentPixel.getRed();
+          int green = currentPixel.getGreen();
+          int blue = currentPixel.getBlue();
+          int alpha = currentPixel.getAlpha();
+          if (i == this.getLayers().size() - 1
+                  && j == layer.getHeight() - 1
+                  && k == layer.getWidth() - 1) {
+            builder.append(red).append(" ");
+            builder.append(green).append(" ");
+            builder.append(blue).append(" ");
+            builder.append(alpha);
+          } else {
+            builder.append(red).append(" ");
+            builder.append(green).append(" ");
+            builder.append(blue).append(" ");
+            builder.append(alpha).append("\n");
+          }
+        }
+      }
+    }
+    Path file = Paths.get(destination);
+    Files.write(file, Collections.singleton(builder), StandardCharsets.UTF_8);
   }
 
   /**

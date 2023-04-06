@@ -190,4 +190,9 @@ public class Layer implements ILayer {
     }
     return image;
   }
+
+  @Override
+  public void setFilter(String filter) {
+    this.filter = filter;
+  }
 }
