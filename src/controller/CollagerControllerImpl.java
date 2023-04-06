@@ -323,6 +323,18 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         }
         break;
       case "add-layer":
+        userPrompts = JOptionPane.showInputDialog(view.getMainPanel(),
+                "Please enter layer name:");
+        layers.put("previousLayer", layers.get("currentLayer"));
+        try {
+          currentCollager.addLayer((String) userPrompts);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), e.getMessage(),
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        currentLayer = currentCollager.getLayers().get(currentCollager.getLayers().size() - 1);
+        layers.replace("currentLayer", currentLayer);
+        view.updateComposite(currentLayer.convertToBuffered());
         break;
       case "col-component":
         String[] colOptions = {"Red", "Green", "Blue"};
