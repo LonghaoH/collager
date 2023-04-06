@@ -3,6 +3,7 @@ package model;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Tests the FilterImpl class.
@@ -12,6 +13,7 @@ public class FilterImplTest {
   public void testConstructor() {
     try {
       FilterImpl filter = new FilterImpl(null);
+      fail("should not be able to initialize as null");
     } catch (IllegalArgumentException e) {
       //do nothing
     }

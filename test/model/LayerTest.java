@@ -144,7 +144,7 @@ public class LayerTest {
       layer.addImage(
               "C:\\Users\\JesseGaming\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm",
               75, 75);
-    } catch(ArrayIndexOutOfBoundsException e) {
+    } catch (ArrayIndexOutOfBoundsException e) {
       fail("Should not be able to go past borders");
     }
   }

@@ -56,7 +56,7 @@ public class RepresentationConverter {
 
 
   /**
-   * Convers an HSL representation where
+   * Converts an HSL representation where.
    * <ul>
    * <li> 0 &lt;= H &lt; 360</li>
    * <li> 0 &lt;= S &lt;= 1</li>

@@ -12,8 +12,10 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
-import javax.swing.*;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import model.AbstractCollager;
 import model.CollagerPPM;

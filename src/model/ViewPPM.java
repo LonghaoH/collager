@@ -59,18 +59,5 @@ public class ViewPPM {
       }
     }
   }
-
-  //demo main
-  public static void main(String[] args) {
-    String filename;
-
-    if (args.length > 0) {
-      filename = args[0];
-    } else {
-      filename = "C:\\Users\\jdhoo\\Documents\\IntelliJ\\Collager\\utils\\5x5.ppm";
-    }
-
-    ViewPPM.readPPM(filename);
-  }
 }
 
