@@ -302,7 +302,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
           File file = fileChooser.getSelectedFile();
 
-          currentLayer.addImage(file.getName(), 0, 0);
+          currentLayer.addImage(file.getAbsolutePath(), 0, 0);
           view.updateComposite(currentLayer.convertToBuffered());
         } else {
           JOptionPane.showMessageDialog(view.getMainPanel(),

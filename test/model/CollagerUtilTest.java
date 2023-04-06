@@ -26,7 +26,7 @@ public class CollagerUtilTest {
     }
 
     image = CollagerUtil.readPPM(
-            "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\utils\\purple50x50.ppm");
+            "C:\\Users\\Nathan Huang\\GitHub\\collager\\utils\\purple50x50.ppm");
 
     for(int i = 0; i < 50; i++) {
       for(int k = 0; k < 50; k++) {
