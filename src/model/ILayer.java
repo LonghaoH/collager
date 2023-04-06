@@ -2,6 +2,10 @@ package model;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Represents a layer of the collager program. Has a name, layer image, height, width, maximum value
+ * and a filter.
+ */
 public interface ILayer {
   /**
    * Returns the name of the layer.

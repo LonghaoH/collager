@@ -1,20 +1,27 @@
 package view;
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JLabel;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 
 /**
  * This class represents an implementation of the Collager view.
  */
 public class CollagerViewImpl extends JFrame implements CollagerView {
   private JPanel mainPanel;
-  private JScrollPane mainScrollPane;
-  private JMenuBar menuBar;
-  private JMenu file;
-  private JMenu edit;
   private JMenuItem fileNewProject;
   private JMenuItem fileOpen;
   private JMenuItem fileSaveImage;
@@ -24,9 +31,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   private JMenuItem editColComponent;
   private JMenuItem editBrighten;
   private JMenuItem editDarken;
-  private JPanel imagePanel;
   private JLabel imageLabel;
-  private JPanel layerPanel;
   private JLabel layerLabel;
 
   @Override
@@ -37,16 +42,16 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
     mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout(mainPanel.getWidth(), mainPanel.getHeight()));
-    mainScrollPane = new JScrollPane(mainPanel);
+    JScrollPane mainScrollPane = new JScrollPane(mainPanel);
     add(mainScrollPane);
   }
 
   @Override
   public void createMenuBar() {
     //create a menubar
-    menuBar = new JMenuBar();
-    file = new JMenu("File");
-    edit = new JMenu("Edit");
+    JMenuBar menuBar = new JMenuBar();
+    JMenu file = new JMenu("File");
+    JMenu edit = new JMenu("Edit");
     menuBar.add(file);
     menuBar.add(edit);
 
@@ -77,7 +82,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
   @Override
   public void createImagePanel() {
-    imagePanel = new JPanel();
+    JPanel imagePanel = new JPanel();
     imagePanel.setBorder(BorderFactory.createTitledBorder("Current composite:"));
     imageLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(imageLabel);
@@ -89,7 +94,7 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
   @Override
   public void createLayerPanel() {
-    layerPanel = new JPanel();
+    JPanel layerPanel = new JPanel();
     layerPanel.setBorder(BorderFactory.createTitledBorder("Layers:"));
     layerLabel = new JLabel();
     JScrollPane scrollPane = new JScrollPane(layerLabel);

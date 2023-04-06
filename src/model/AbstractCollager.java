@@ -87,6 +87,13 @@ public abstract class AbstractCollager implements ICollager {
     }
   }
 
+  /**
+   * Returns a composite 2d array of PixelColor that is the combination of all the layers below
+   * the given layerName.
+   *
+   * @param layerName the name of the layer to get the composite beneath
+   * @return a 2d array of PixelColor that is the composite of all layers beneath
+   */
   public PixelColor[][] getLayersBelow(String layerName) {
     PixelColor[][] image = layers.get(0).getLayerImage();
     PixelColor[][] layerCurrent;

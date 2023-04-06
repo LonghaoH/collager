@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.*;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;

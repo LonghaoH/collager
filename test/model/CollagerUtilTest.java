@@ -7,6 +7,9 @@ import static model.CollagerUtil.readPPM;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+/**
+ * Tests the CollagerUtil class.
+ */
 public class CollagerUtilTest {
   @Test
   public void testReadPPM() {
@@ -19,8 +22,8 @@ public class CollagerUtilTest {
     PixelColor[][] imageTest = new PixelColor[50][50];
     PixelColor[][] image = new PixelColor[50][50];
 
-    for(int i = 0; i < 50; i++) {
-      for(int k = 0; k < 50; k++) {
+    for (int i = 0; i < 50; i++) {
+      for (int k = 0; k < 50; k++) {
         imageTest[i][k] = new PixelColor(168, 91, 188);
       }
     }
@@ -28,8 +31,8 @@ public class CollagerUtilTest {
     image = CollagerUtil.readPPM(
             "C:\\Users\\Nathan Huang\\GitHub\\collager\\utils\\purple50x50.ppm");
 
-    for(int i = 0; i < 50; i++) {
-      for(int k = 0; k < 50; k++) {
+    for (int i = 0; i < 50; i++) {
+      for (int k = 0; k < 50; k++) {
         assertEquals(image[i][k].getRed(), imageTest[i][k].getRed());
         assertEquals(image[i][k].getGreen(), imageTest[i][k].getGreen());
         assertEquals(image[i][k].getBlue(), imageTest[i][k].getBlue());

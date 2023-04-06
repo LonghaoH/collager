@@ -1,8 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
-import javax.swing.*;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * This interface represents a controller for a collager.
@@ -34,5 +33,6 @@ public interface CollagerController {
    * @throws IOException if the inputted command is not supported by the controller,
    *                     if the file is not found, or if the file already exist.
    */
-  void runGUIMode() throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException;
+  void runGUIMode() throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException,
+          InstantiationException, IllegalAccessException;
 }
