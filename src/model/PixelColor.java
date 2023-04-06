@@ -257,9 +257,9 @@ public class PixelColor {
     int red = this.red;
     int green = this.green;
     int blue = this.blue;
-    this.red = abs(red - dr);
-    this.green = abs(green - dg);
-    this.blue = abs(blue - db);
+    this.red = Math.abs(red - dr);
+    this.green = Math.abs(green - dg);
+    this.blue = Math.abs(blue - db);
   }
 
   /**
