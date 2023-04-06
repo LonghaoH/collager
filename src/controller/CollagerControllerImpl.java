@@ -14,6 +14,7 @@ import java.util.Scanner;
 import javax.swing.*;
 
 import model.AbstractCollager;
+import model.CollagerPPM;
 import model.CollagerUtil;
 import model.ICollager;
 import model.IFilter;
@@ -53,7 +54,8 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   public CollagerControllerImpl(Appendable appendable, CollagerView view) {
     this.appendable = Objects.requireNonNull(appendable);
     this.view = Objects.requireNonNull(view);
-    this.currentCollager = null;
+    this.currentCollager = new CollagerPPM();
+    this.layers = new HashMap<>();
   }
 
   @Override
@@ -256,7 +258,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   public void actionPerformed(ActionEvent arg0) {
     JFileChooser fileChooser;
     Object userPrompts;
-    ILayer currentLayer = null;
+    ILayer currentLayer;
     IFilter filter;
 
     switch (arg0.getActionCommand()) {
@@ -264,10 +266,10 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         int height;
         int width;
         userPrompts = JOptionPane.showInputDialog(view.getMainPanel(),
-                "Please enter height and width separated by ','");
+                "Please enter height and width separated by a space:");
         // assign height and width values
         String prompt = (String) userPrompts;
-        String[] prompts = prompt.split(",");
+        String[] prompts = prompt.split(" ");
         height = Integer.parseInt(prompts[0]);
         width = Integer.parseInt(prompts[1]);
 
