@@ -24,7 +24,6 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   private JPanel imagePanel;
   private JPanel layerPanel;
   private JLabel imageLabel;
-  private JLabel layerLabel;
   private JButton newLayer;
 
   @Override
@@ -109,6 +108,24 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
   }
 
   @Override
+  public JPanel getMainPanel() {
+    return this.mainPanel;
+  }
+
+  @Override
+  public void updateComposite(Image image) {
+    this.imageLabel.setIcon(new ImageIcon(Objects.requireNonNull(image)));
+  }
+
+  @Override
+  public void updateLayer(String layerName) {
+    newLayer = new JButton(layerName);
+    this.layerPanel.add(newLayer);
+    this.layerPanel.repaint();
+    this.layerPanel.revalidate();
+  }
+
+  @Override
   public void setActionListeners(ActionListener listener) {
     fileNewProject.setActionCommand("new-project");
     fileNewProject.addActionListener(listener);
@@ -137,26 +154,8 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
     editDarken.setActionCommand("darken");
     editDarken.addActionListener(listener);
 
-//    newLayer.setActionCommand("set-current-layer");
-//    newLayer.addActionListener(listener);
-  }
-
-  @Override
-  public JPanel getMainPanel() {
-    return this.mainPanel;
-  }
-
-  @Override
-  public void updateComposite(Image image) {
-    this.imageLabel.setIcon(new ImageIcon(Objects.requireNonNull(image)));
-  }
-
-  @Override
-  public void updateLayer(String layerName) {
-    newLayer = new JButton(layerName);
-    this.layerPanel.add(newLayer);
-    this.layerPanel.repaint();
-    this.layerPanel.revalidate();
+    newLayer.setActionCommand("set-current-layer");
+    newLayer.addActionListener(listener);
   }
 
   @Override

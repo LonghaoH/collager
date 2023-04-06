@@ -548,6 +548,28 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         view.updateComposite(darkenImage.convertToBuffered());
         break;
       case "set-current-layer":
+        String layerName = (String) arg.getSource();
+        if (!layers.containsKey(layerName)) {
+          currentLayer = layers.get("currentLayer");
+        } else {
+          currentLayer = layers.get(layerName);
+        }
+
+        try {
+          currentCollager.getLayer(currentLayer.getName());
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), e.getMessage(),
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+
+        ILayer layerToSet = null;
+        try {
+          layerToSet = this.getColLayer(currentLayer);
+        } catch (IllegalArgumentException e) {
+          JOptionPane.showMessageDialog(view.getMainPanel(), "No such layer.",
+                  "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        view.updateComposite(layerToSet.convertToBuffered());
         break;
       default:
         break;
