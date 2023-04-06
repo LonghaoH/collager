@@ -100,29 +100,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         case "save-project":
           try {
             FileWriter file = new FileWriter("Project");
-            file.write("C1" + "\n" + currentCollager.getWidth() + " " + currentCollager.getHeight()
-                    + "\n" + currentCollager.getMaxVal() + "\n");
-            for (int i = 0; i < currentCollager.getLayers().size(); i++) {
-              Layer layer = currentCollager.getLayers().get(i);
-              file.write(layer.getName() + " " +
-                      layer.getFilter() + "\n");
-              for (int k = 0; k < layer.getHeight(); k++) {
-                for (int j = 0; j < layer.getWidth(); j++) {
-                  PixelColor pixel = layer.getLayerImage()[k][j];
-                  if (i == currentCollager.getLayers().size() - 1 &&
-                          k == layer.getHeight() - 1 &&
-                          j == layer.getWidth() - 1) {
-                    file.write(pixel.getRed() + " " + pixel.getGreen() + " "
-                            + pixel.getBlue() + " " + pixel.getAlpha());
-                    break;
-                  } else {
-                    file.write(pixel.getRed() + " " + pixel.getGreen() + " "
-                            + pixel.getBlue() + " " + pixel.getAlpha() + "\n");
-                  }
-                }
-              }
-            }
-            file.close();
+            this.writeFile(file);
           } catch (IOException e) {
             throw new IllegalStateException(e.getMessage());
           }
@@ -288,6 +266,12 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "save-image":
         break;
       case "save-project":
+        try {
+          FileWriter file = new FileWriter("Project");
+          this.writeFile(file);
+        } catch (IOException e) {
+          throw new IllegalStateException(e.getMessage());
+        }
         break;
       case "add-image":
         fileChooser = new JFileChooser();
@@ -498,6 +482,38 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       }
     }
     throw new IllegalArgumentException("Layer is not in the current collager.");
+  }
+
+  /**
+   * Writes the current collager information into a file to be saved.
+   *
+   * @param file the provided file to be written into.
+   */
+  private void writeFile(FileWriter file) throws IOException {
+    file.write("C1" + "\n" + currentCollager.getWidth() + " "
+            + currentCollager.getHeight()
+            + "\n" + currentCollager.getMaxVal() + "\n");
+    for (int i = 0; i < currentCollager.getLayers().size(); i++) {
+      Layer layer = currentCollager.getLayers().get(i);
+      file.write(layer.getName() + " " +
+              layer.getFilter() + "\n");
+      for (int k = 0; k < layer.getHeight(); k++) {
+        for (int j = 0; j < layer.getWidth(); j++) {
+          PixelColor pixel = layer.getLayerImage()[k][j];
+          if (i == currentCollager.getLayers().size() - 1 &&
+                  k == layer.getHeight() - 1 &&
+                  j == layer.getWidth() - 1) {
+            file.write(pixel.getRed() + " " + pixel.getGreen() + " "
+                    + pixel.getBlue() + " " + pixel.getAlpha());
+            break;
+          } else {
+            file.write(pixel.getRed() + " " + pixel.getGreen() + " "
+                    + pixel.getBlue() + " " + pixel.getAlpha() + "\n");
+          }
+        }
+      }
+    }
+    file.close();
   }
 
   /**
