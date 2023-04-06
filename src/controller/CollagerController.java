@@ -1,8 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
-import javax.swing.*;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * This interface represents a controller for a collager.

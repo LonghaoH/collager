@@ -2,12 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -20,7 +18,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.AbstractCollager;
 import model.CollagerPPM;
 import model.CollagerUtil;
-import model.ICollager;
 import model.IFilter;
 import model.ILayer;
 import model.Layer;
@@ -53,7 +50,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
    * Constructor: Initializes the controller with a given view.
    *
    * @param appendable an appendable object for building messages.
-   * @param view a GUI view of the collager.
+   * @param view       a GUI view of the collager.
    */
   public CollagerControllerImpl(Appendable appendable, CollagerView view) {
     this.appendable = Objects.requireNonNull(appendable);
@@ -110,14 +107,13 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
               for (int k = 0; k < layer.getHeight(); k++) {
                 for (int j = 0; j < layer.getWidth(); j++) {
                   PixelColor pixel = layer.getLayerImage()[k][j];
-                  if(i == currentCollager.getLayers().size() -1 &&
-                          k == layer.getHeight() -1 &&
+                  if (i == currentCollager.getLayers().size() - 1 &&
+                          k == layer.getHeight() - 1 &&
                           j == layer.getWidth() - 1) {
                     file.write(pixel.getRed() + " " + pixel.getGreen() + " "
                             + pixel.getBlue() + " " + pixel.getAlpha());
                     break;
-                  }
-                  else {
+                  } else {
                     file.write(pixel.getRed() + " " + pixel.getGreen() + " "
                             + pixel.getBlue() + " " + pixel.getAlpha() + "\n");
                   }
@@ -166,8 +162,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                   filType.equals("multiply") ||
                   filType.equals("screen")) {
             layerOp.filterBlend(filType, currentCollager.getLayersBelow(layerOp.getName()));
-          }
-          else {
+          } else {
             try {
               layerOp.filter(filType);
             } catch (IllegalArgumentException e) {
@@ -203,12 +198,11 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
 
             for (int i = 0; i < currentCollager.getHeight(); i++) {
               for (int k = 0; k < currentCollager.getWidth(); k++) {
-                if(i == currentCollager.getHeight() - 1 && k == currentCollager.getWidth() - 1) {
+                if (i == currentCollager.getHeight() - 1 && k == currentCollager.getWidth() - 1) {
                   file.write(layerCurrent[i][k].getRed() + " " +
                           layerCurrent[i][k].getGreen() + " " +
                           layerCurrent[i][k].getBlue());
-                }
-                else {
+                } else {
                   file.write(layerCurrent[i][k].getRed() + " " +
                           layerCurrent[i][k].getGreen() + " " +
                           layerCurrent[i][k].getBlue() + "\n");
@@ -259,13 +253,13 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   }
 
   @Override
-  public void actionPerformed(ActionEvent arg0) {
+  public void actionPerformed(ActionEvent arg) {
     JFileChooser fileChooser;
     Object userPrompts;
     ILayer currentLayer = new Layer("bleh", 1, 1, 1);
     IFilter filter;
 
-    switch (arg0.getActionCommand()) {
+    switch (arg.getActionCommand()) {
       case "new-project":
         int height;
         int width;

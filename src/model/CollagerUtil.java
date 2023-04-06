@@ -175,7 +175,7 @@ public class CollagerUtil {
     collager.width = width;
     collager.maxVal = maxValue;
 
-    while(sc.hasNext()) {
+    while (sc.hasNext()) {
 
       String layerName = sc.next();
       String filterName = sc.next();

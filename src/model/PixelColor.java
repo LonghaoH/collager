@@ -41,7 +41,7 @@ public class PixelColor {
   }
 
   /**
-   * Constructor: Represents a 3-components pixel given the RGB values
+   * Constructor: Represents a 3-components pixel given the RGB values.
    *
    * @param r the red component.
    * @param g the green component.
@@ -246,6 +246,10 @@ public class PixelColor {
     }
   }
 
+  /**
+   * Applies a difference filter to the pixel based on the composite pixel below it.
+   * @param composite a composite of all the pixels beneath it.
+   */
   public void difference(PixelColor composite) {
     int dr = composite.getRed();
     int dg = composite.getGreen();
@@ -258,6 +262,10 @@ public class PixelColor {
     this.blue = abs(blue - db);
   }
 
+  /**
+   * Applies a multiply filter to the pixel based on the composite pixel below it.
+   * @param composite a composite of all the pixels beneath it.
+   */
   public void multiply(PixelColor composite) {
     double[] hsl = convertRGBtoHSL(
             (double) this.red / 255.0,
@@ -281,6 +289,10 @@ public class PixelColor {
     this.blue = (int) rgbNew[2];
   }
 
+  /**
+   * Applies a screen filter to the pixel based on the composite pixel below it.
+   * @param composite a composite of all the pixels beneath it.
+   */
   public void screen(PixelColor composite) {
     double[] hsl = convertRGBtoHSL(
             (double) this.red / 255, (double) this.green / 255, (double) this.blue / 255);
