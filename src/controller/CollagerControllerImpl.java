@@ -313,6 +313,12 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
                 "PPM, JPEG, PNG", "ppm", "jpg", "png");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+        if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
+          File file = fileChooser.getSelectedFile();
+          String path = file.getAbsolutePath();
+          String[] str = path.split("\\.");
+          String extension = str[str.length - 1];
+        }
         break;
       case "save-project":
         fileChooser = new JFileChooser();
