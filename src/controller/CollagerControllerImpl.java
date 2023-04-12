@@ -21,6 +21,7 @@ import model.AbstractCollager;
 import model.CollagerPPM;
 import model.CollagerUtil;
 import model.ILayer;
+import model.ImageFiles;
 import model.Layer;
 import model.PixelColor;
 import view.CollagerView;
@@ -312,12 +313,25 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
                 "PPM, JPEG, PNG", "ppm", "jpg", "png");
         fileChooser.setFileFilter(fileFilter);
+        currentLayer = layers.get("currentLayer");
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
         if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
           File file = fileChooser.getSelectedFile();
           String path = file.getAbsolutePath();
           String[] str = path.split("\\.");
           String extension = str[str.length - 1];
+
+          try {
+            int h = currentLayer.getHeight();
+            int w = currentLayer.getWidth();
+            int maxV = currentLayer.getMaxVal();
+            PixelColor[][] pixels = currentLayer.getLayerImage();
+            ImageFiles image = new ImageFiles(currentLayer.convertToBuffered());
+            currentCollager.saveImage(path, h, w, maxV, pixels, extension, image);
+          } catch (IOException e) {
+            JOptionPane.showMessageDialog(view.getMainPanel(), "Image cannot be saved.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+          }
         }
         break;
       case "save-project":

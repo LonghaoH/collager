@@ -26,6 +26,22 @@ public interface ICollager {
   void saveProject(String destination) throws IOException;
 
   /**
+   * Saves the current project as an image to the given destination with the desired file
+   * extension, as well as other specs of the image.
+   *
+   * @param destination the destination to save the project to.
+   * @param height the height of the image.
+   * @param width the width of the image.
+   * @param maxVal the max value of the image.
+   * @param pixels the pixels information of the image.
+   * @param extension the String representation of the file extension.
+   * @param image the image file.
+   * @throws IOException if the file already exists.
+   */
+  void saveImage(String destination, int height, int width, int maxVal, PixelColor[][] pixels,
+                 String extension, ImageFiles image) throws IOException;
+
+  /**
    * Adds a default layer to the collager.
    *
    * @param name the name of the layer

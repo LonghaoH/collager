@@ -96,17 +96,6 @@ public class ImageFiles {
     return this.width;
   }
 
-  /**
-   * Gets the extension of an image file.
-   *
-   * @return the extension of the image file.
-   */
-  public Extension getExtension() {
-    String[] str = filePath.split("\\.");
-    String extension = str[str.length - 1];
-    return Extension.valueOf(extension.toUpperCase());
-  }
-
   public PixelColor[][] toPixelImage() throws FileNotFoundException {
     int h = image.getHeight();
     int w = image.getWidth();

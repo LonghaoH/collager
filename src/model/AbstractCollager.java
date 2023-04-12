@@ -83,6 +83,34 @@ public abstract class AbstractCollager implements ICollager {
     Files.write(file, Collections.singleton(builder), StandardCharsets.UTF_8);
   }
 
+  @Override
+  public void saveImage(String destination, int height, int width, int maxVal,
+                        PixelColor[][] pixels, String extension, ImageFiles image) throws IOException {
+    if (extension.equals("ppm")) {
+      StringBuilder builder = new StringBuilder();
+      builder.append("P3\n");
+      builder.append(width).append("\n");
+      builder.append(height).append("\n");
+      builder.append(maxVal).append("\n");
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          PixelColor pixel = pixels[i][j];
+          int red = pixel.getRed();
+          int green = pixel.getGreen();
+          int blue = pixel.getBlue();
+          builder.append(red).append("\n");
+          builder.append(green).append("\n");
+          builder.append(blue).append("\n");
+        }
+      }
+      Path file = Paths.get(destination);
+      Files.write(file, Collections.singleton(builder), StandardCharsets.UTF_8);
+    } else {
+      ImageFiles.Extension extension1 = ImageFiles.Extension.valueOf(extension.toUpperCase());
+      image.writeImageToFile(destination, extension1);
+    }
+  }
+
   /**
    * Adds a default layer to the collager.
    *
