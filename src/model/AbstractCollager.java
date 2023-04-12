@@ -89,7 +89,7 @@ public abstract class AbstractCollager implements ICollager {
     if (extension.equals("ppm")) {
       StringBuilder builder = new StringBuilder();
       builder.append("P3\n");
-      builder.append(width).append("\n");
+      builder.append(width).append(" ");
       builder.append(height).append("\n");
       builder.append(maxVal).append("\n");
       for (int i = 0; i < height; i++) {
@@ -98,9 +98,15 @@ public abstract class AbstractCollager implements ICollager {
           int red = pixel.getRed();
           int green = pixel.getGreen();
           int blue = pixel.getBlue();
-          builder.append(red).append("\n");
-          builder.append(green).append("\n");
-          builder.append(blue).append("\n");
+          if (i == height - 1 && j == width - 1) {
+            builder.append(red).append(" ");
+            builder.append(green).append(" ");
+            builder.append(blue);
+          } else {
+            builder.append(red).append(" ");
+            builder.append(green).append(" ");
+            builder.append(blue).append("\n");
+          }
         }
       }
       Path file = Paths.get(destination);

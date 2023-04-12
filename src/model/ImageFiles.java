@@ -20,7 +20,7 @@ public class ImageFiles {
    * Supported types of extensions.
    */
   public enum Extension {
-    PPM, JPEG, PNG
+    PPM, JPEG, PNG, JPG
   }
 
   /**

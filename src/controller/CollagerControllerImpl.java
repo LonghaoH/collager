@@ -311,10 +311,10 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "save-image":
         fileChooser = new JFileChooser();
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
-                "PPM, JPEG, PNG", "ppm", "jpg", "png");
+                "PPM, JPEG, PNG, JPG", "ppm", "jpg", "png", "jpeg");
         fileChooser.setFileFilter(fileFilter);
         currentLayer = layers.get("currentLayer");
-        userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
+        userPrompts = fileChooser.showSaveDialog(view.getMainPanel());
         if ((int) userPrompts == JFileChooser.APPROVE_OPTION) {
           File file = fileChooser.getSelectedFile();
           String path = file.getAbsolutePath();
@@ -350,7 +350,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "add-image":
         fileChooser = new JFileChooser();
         fileFilter = new FileNameExtensionFilter(
-                "PPM, JPEG, PNG", "ppm", "jpg", "png");
+                "PPM, JPEG, PNG, JPG", "ppm", "jpg", "png", "jpeg");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
         currentLayer = layers.get("currentLayer");
