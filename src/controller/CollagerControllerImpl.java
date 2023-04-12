@@ -245,8 +245,8 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
 
     String input = builder.toString();
 
-    new CollagerControllerImpl
-            (this.appendable, new StringReader(input), this.currentCollager).run();
+    new CollagerControllerImpl(
+            this.appendable, new StringReader(input), this.currentCollager).run();
   }
 
   @Override

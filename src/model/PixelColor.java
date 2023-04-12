@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import static model.RepresentationConverter.convertHSLtoRGB;

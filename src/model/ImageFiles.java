@@ -96,6 +96,11 @@ public class ImageFiles {
     return this.width;
   }
 
+  /**
+   * Converts an image to a 2d array of PixelColor.
+   * @return a 3d array of PixelColor representing the image
+   * @throws FileNotFoundException
+   */
   public PixelColor[][] toPixelImage() throws FileNotFoundException {
     int h = image.getHeight();
     int w = image.getWidth();

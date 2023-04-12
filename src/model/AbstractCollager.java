@@ -85,7 +85,8 @@ public abstract class AbstractCollager implements ICollager {
 
   @Override
   public void saveImage(String destination, int height, int width, int maxVal,
-                        PixelColor[][] pixels, String extension, ImageFiles image) throws IOException {
+                        PixelColor[][] pixels, String extension, ImageFiles image)
+          throws IOException {
     if (extension.equals("ppm")) {
       StringBuilder builder = new StringBuilder();
       builder.append("P3\n");
@@ -142,7 +143,8 @@ public abstract class AbstractCollager implements ICollager {
    * @param yPos      the y-position on the layrer of where the image will be placed
    */
   @Override
-  public void addImageToLayer(String layerName, String imageName, int xPos, int yPos) throws IOException {
+  public void addImageToLayer(String layerName, String imageName, int xPos, int yPos)
+          throws IOException {
     for (int i = 0; i < this.layers.size(); i++) {
       if (this.layers.get(i).getName().equals(layerName)) {
         this.layers.get(i).addImage(imageName, xPos, yPos);
