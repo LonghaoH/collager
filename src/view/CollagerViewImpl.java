@@ -163,9 +163,6 @@ public class CollagerViewImpl extends JFrame implements CollagerView {
 
     editDarken.setActionCommand("darken");
     editDarken.addActionListener(listener);
-
-    newLayer.setActionCommand("set-current-layer");
-    newLayer.addActionListener(listener);
   }
 
   @Override

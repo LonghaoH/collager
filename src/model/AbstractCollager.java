@@ -108,7 +108,7 @@ public abstract class AbstractCollager implements ICollager {
    * @param yPos      the y-position on the layrer of where the image will be placed
    */
   @Override
-  public void addImageToLayer(String layerName, String imageName, int xPos, int yPos) {
+  public void addImageToLayer(String layerName, String imageName, int xPos, int yPos) throws IOException {
     for (int i = 0; i < this.layers.size(); i++) {
       if (this.layers.get(i).getName().equals(layerName)) {
         this.layers.get(i).addImage(imageName, xPos, yPos);

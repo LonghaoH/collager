@@ -2,6 +2,7 @@ package model;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -93,5 +94,21 @@ public class ImageFiles {
    */
   public int getWidth() {
     return this.width;
+  }
+
+  /**
+   * Gets the extension of an image file.
+   *
+   * @return the extension of the image file.
+   */
+  public Extension getExtension() {
+    String[] str = filePath.split("\\.");
+    String extension = str[str.length - 1];
+    return Extension.valueOf(extension.toUpperCase());
+  }
+
+  public PixelColor[][] toPixelImage() throws FileNotFoundException {
+    PixelColor PPMImage = null;
+    return PPMImage.convertToPixel(this.getImage());
   }
 }

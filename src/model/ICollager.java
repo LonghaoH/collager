@@ -41,7 +41,7 @@ public interface ICollager {
    * @param xPos      the x-position on the layer of where the image will be placed
    * @param yPos      the y-position on the layrer of where the image will be placed
    */
-  void addImageToLayer(String layerName, String imageName, int xPos, int yPos);
+  void addImageToLayer(String layerName, String imageName, int xPos, int yPos) throws IOException;
 
   /**
    * Sets the filter of the given layer to the filter option given.

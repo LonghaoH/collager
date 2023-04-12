@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -126,22 +127,31 @@ public class Layer implements ILayer {
    * @param xPos      the x-position of the top-leftmost corner of the image
    * @param yPos      the y-position of the top-leftmost corner of the image
    */
-  public void addImage(String imageName, int xPos, int yPos) {
-    PixelColor[][] image = CollagerUtil.readPPM(imageName);
-    int imageHeight = CollagerUtil.getHeight(imageName);
-    int imageWidth = CollagerUtil.getWidth(imageName);
+  public void addImage(String imageName, int xPos, int yPos) throws IOException {
+    ImageFiles image = new ImageFiles(imageName);
+    PixelColor[][] imagePixel;
+    int imageHeight;
+    int imageWidth;
+    if (image.getExtension().equals("PPM")) {
+      imagePixel = CollagerUtil.readPPM(imageName);
+      imageHeight = CollagerUtil.getHeight(imageName);
+      imageWidth = CollagerUtil.getWidth(imageName);
+    } else {
+      imagePixel = image.toPixelImage();
+      imageHeight = image.getHeight();
+      imageWidth = image.getWidth();
+    }
 
     for (int j = yPos; j < imageHeight + yPos; j++) {
       for (int m = xPos; m < imageWidth + xPos; m++) {
         if (j >= this.height || m >= this.width) {
           break;
         }
-        PixelColor pix = image[j - yPos][m - xPos];
+        PixelColor pix = imagePixel[j - yPos][m - xPos];
         pix = new PixelColor(pix.getRed(), pix.getGreen(), pix.getBlue(), this.maxVal);
         this.layerImage[j][m] = pix;
       }
     }
-
   }
 
   /**

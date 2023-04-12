@@ -310,7 +310,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "save-image":
         fileChooser = new JFileChooser();
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(
-                "PPM", "ppm");
+                "PPM, JPEG, PNG", "ppm", "jpg", "png");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
         break;
@@ -330,7 +330,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       case "add-image":
         fileChooser = new JFileChooser();
         fileFilter = new FileNameExtensionFilter(
-                "PPM", "ppm");
+                "PPM, JPEG, PNG", "ppm", "jpg", "png");
         fileChooser.setFileFilter(fileFilter);
         userPrompts = fileChooser.showOpenDialog(view.getMainPanel());
         currentLayer = layers.get("currentLayer");
@@ -340,7 +340,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
           try {
             currentCollager.addImageToLayer(currentLayer.getName(), file.getAbsolutePath(),
                     0, 0);
-          } catch (IllegalArgumentException e) {
+          } catch (IOException e) {
             JOptionPane.showMessageDialog(view.getMainPanel(), "Invalid action.",
                     "Error!", JOptionPane.ERROR_MESSAGE);
           }

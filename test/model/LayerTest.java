@@ -2,6 +2,8 @@ package model;
 
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -120,7 +122,7 @@ public class LayerTest {
   }
 
   @Test
-  public void testAddImage() {
+  public void testAddImage() throws IOException {
     Layer layer = new Layer("Layer1", 100, 100, 255);
     layer.defaultLayer();
     for (int i = 0; i < layer.getHeight(); i++) {

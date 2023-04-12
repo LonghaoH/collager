@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import static model.RepresentationConverter.convertHSLtoRGB;
@@ -311,6 +312,28 @@ public class PixelColor {
     this.red = (int) rgbNew[0];
     this.green = (int) rgbNew[1];
     this.blue = (int) rgbNew[2];
+  }
+
+  /**
+   * Converts the given BufferedImage to a PPM image.
+   *
+   * @param image the given BufferedImage.
+   * @return a pixel representation of the image.
+   */
+  public PixelColor[][] convertToPixel(BufferedImage image) {
+    int h = image.getHeight();
+    int w = image.getWidth();
+    PixelColor[][] ppmImage = new PixelColor[h][w];
+    for (int i = 0; i < h; i++) {
+      for (int j = 0; j < w; j++) {
+        int rgb = image.getRGB(j, i);
+        int red = (rgb >> 16) & 0xFF;
+        int green = (rgb >> 8) & 0xFF;
+        int blue = (rgb) & 0xFF;
+        ppmImage[i][j] = new PixelColor(red, green, blue);
+      }
+    }
+    return ppmImage;
   }
 
   /**

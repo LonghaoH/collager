@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * Represents a layer of the collager program. Has a name, layer image, height, width, maximum value
@@ -70,7 +71,7 @@ public interface ILayer {
    * @param xPos      the x-position of the top-leftmost corner of the image
    * @param yPos      the y-position of the top-leftmost corner of the image
    */
-  void addImage(String imageName, int xPos, int yPos);
+  void addImage(String imageName, int xPos, int yPos) throws IOException;
 
   /**
    * Applies a filter to the layer.
