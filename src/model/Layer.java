@@ -128,15 +128,17 @@ public class Layer implements ILayer {
    * @param yPos      the y-position of the top-leftmost corner of the image
    */
   public void addImage(String imageName, int xPos, int yPos) throws IOException {
-    ImageFiles image = new ImageFiles(imageName);
     PixelColor[][] imagePixel;
     int imageHeight;
     int imageWidth;
-    if (image.getExtension().equals("PPM")) {
+    String[] str = imageName.split("\\.");
+    String extension = str[str.length - 1];
+    if (extension.equals("ppm")) {
       imagePixel = CollagerUtil.readPPM(imageName);
       imageHeight = CollagerUtil.getHeight(imageName);
       imageWidth = CollagerUtil.getWidth(imageName);
     } else {
+      ImageFiles image = new ImageFiles(imageName);
       imagePixel = image.toPixelImage();
       imageHeight = image.getHeight();
       imageWidth = image.getWidth();

@@ -108,7 +108,18 @@ public class ImageFiles {
   }
 
   public PixelColor[][] toPixelImage() throws FileNotFoundException {
-    PixelColor PPMImage = null;
-    return PPMImage.convertToPixel(this.getImage());
+    int h = image.getHeight();
+    int w = image.getWidth();
+    PixelColor[][] ppmImage = new PixelColor[h][w];
+    for (int i = 0; i < h; i++) {
+      for (int j = 0; j < w; j++) {
+        int rgb = image.getRGB(j, i);
+        int red = (rgb >> 16) & 0xFF;
+        int green = (rgb >> 8) & 0xFF;
+        int blue = (rgb) & 0xFF;
+        ppmImage[i][j] = new PixelColor(red, green, blue);
+      }
+    }
+    return ppmImage;
   }
 }
