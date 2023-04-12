@@ -233,7 +233,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
   }
 
   @Override
-  public void runScriptMode(String filePath) {
+  public void runScriptMode(String filePath) throws IOException {
     Scanner sc;
     StringBuilder builder = new StringBuilder();
 
@@ -243,16 +243,10 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
       throw new IllegalArgumentException("File " + filePath + " not found!");
     }
 
-    while (sc.hasNextLine()) {
-      String s = sc.nextLine();
-      if (s.charAt(0) != '#') {
-        builder.append(s + System.lineSeparator());
-      }
-    }
-
     String input = builder.toString();
 
-    new CollagerControllerImpl(this.appendable, new StringReader(input), this.currentCollager);
+    new CollagerControllerImpl
+            (this.appendable, new StringReader(input), this.currentCollager).run();
   }
 
   @Override
@@ -629,7 +623,7 @@ public class CollagerControllerImpl implements CollagerController, ActionListene
     appendMessage("Supported commands: " + System.lineSeparator());
     appendMessage("new-project canvas-height canvas-width" + System.lineSeparator());
     appendMessage("load-project path-to-project-file" + System.lineSeparator());
-    appendMessage("save-project project-file-name" + System.lineSeparator());
+    appendMessage("save-project" + System.lineSeparator());
     appendMessage("add-layer layer-name" + System.lineSeparator());
     appendMessage("add-image-to-layer layer-name image-name x-pos y-pos" + System.lineSeparator());
     appendMessage("set-filter layer-name filter-option" + System.lineSeparator());

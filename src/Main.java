@@ -26,7 +26,8 @@ public class Main {
     CollagerController controller = new CollagerControllerImpl(appendable, view);
     if (args.length != 0) {
       if (Objects.equals(args[0], "-file")) {
-        controller.runScriptMode(args[1]);
+        controller.runScriptMode(
+                "C:\\Users\\jdhoo\\Documents\\GitHub\\collager\\res\\script.txt");
       }
       if (Objects.equals(args[0], "-text")) {
         controller.run();
