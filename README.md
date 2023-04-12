@@ -92,7 +92,14 @@ IFilter\
 ILayer\
     - An interface to represent a layer in the collager program
     - Written to provide an interface for the Layer class, to allow different representations of a 
-Layer.\
+Layer.
+
+ImageFiles\
+    - A class to represent and accept different types of image extensions, including ppm, jpeg, jpg,
+and png images.\
+    - Contains a method to write an image to a file, aiding in saving the final image.\
+    - Contains a method, toPixelImage, which takes the image and converts it to a 2d array of pixels
+to differently represent the image.
 
 ### --View--
 CollagerView\
@@ -104,3 +111,12 @@ CollagerViewImpl\
 The image "purple50x50.ppm" was created by me and I authorize its use in this project.
 
 Contains code in the ViewPPM, and RepresentationConverter classes written by Professor Lucia Nunez, who authorized their use in this project.
+
+### --View Decoupling--
+There are no additional files required to make the view compile.
+
+### --A6 Notes:--
+Added a new class to the model to handle conversions and different type of image 
+extensions.\
+Also updated the controller to be able to use these different types of images:\
+    - saveImage and addImage both can accept multiple different image file types
