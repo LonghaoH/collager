@@ -1,0 +1,4 @@
+new-project 500 500
+add-layer layer1
+add-image C:\Users\jdhoo\Documents\GitHub\collager\utils\purple50x50.ppm
+
