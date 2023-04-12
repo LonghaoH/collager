@@ -99,7 +99,7 @@ public class ImageFiles {
   /**
    * Converts an image to a 2d array of PixelColor.
    * @return a 3d array of PixelColor representing the image
-   * @throws FileNotFoundException
+   * @throws FileNotFoundException if the file does not exist
    */
   public PixelColor[][] toPixelImage() throws FileNotFoundException {
     int h = image.getHeight();
