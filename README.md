@@ -1,45 +1,31 @@
 # collager
 This program functions like a photo-editing software, allowing the user to create and modify images 
-with different functionalities.
+with different functionalities, such as filters. Currently available features are adding multiple layers to the program,
+with multiple images per layer, and each layer can have a filter on it. It supports image of file types JPG, PNG, PPM,
+and JPEG. These filter types are Brighten, Darken, Color Components, which filters the layer to just have the one color.
+You can create multiple projects, and save and load these projects to work on them again later.
+You can also save the final composite image in all the different file formats listed above.
 
-Supported image commands:
+System Requirements to compile the code:
+- Java 11 or higher
+- JUnit 4 for testing
 
-new-project canvas-height canvas-width\
-    - creates a new project with the given name and given dimensions.\
-    - every project has a white background by default.
+How to use:
+- Please refer to the USEME.md file for use instructions
 
-load-project path-to-project-file\
-    - loads a project into the program.
-
-save-project\
-    - save the project as one file.
-
-add-layer layer-name\
-    - adds a new layer with the given name on top of the whole project.
-
-add-image-to-layer layer-name image-name x-pos y-pos\
-    - adds a given image to the given layer at the specified position.
-
-set-filter layer-name filter-option\
-    - sets the filter of the given layer with the given filter.
-
-save-image file-name\
-    - save the result of applying all filters on the image.
-
-quit or q\
-    - quits the project and loses all unsaved work.
+## Code Design:
 
 ### --Controller--
 
 CollagerController\
-    - This interface represents a Collager controller, containing 3 different run methods.\
+    - This interface represents a controller for the Collager, connecting both the model and the view.\
     - There is a run method to run the controller normally using input from System.in.\
     - a run method to run the controller with the GUI.\
     - a run method to run the controller with a provided path to a .txt file
 containing a script.
 
 CollagerControllerImpl\
-    - This implements the three methods to run the Controller in different ways,
+    - This implements CollagerController interface and the three methods to run the Controller in different ways,
 normal, GUI mode, and script mode.\
     - This also contains a method appendMessage, which helps to output helpful feedback in response
 to the user actions.\
@@ -47,8 +33,7 @@ to the user actions.\
 passes the controller an action, and this method parses that action.
 
 ### --Model--
-ViewPPM\
-    - This is a provided utility class that is used for reading PPM images.
+Represents a model for the Collager program, where the back-end software is.\
 
 PixelColor\
     - This class represents the data of a single pixel of images.\
@@ -106,17 +91,9 @@ CollagerView\
     - Represents an interactive GUI for the collager program.
 
 CollagerViewImpl\
-    - Creates an interactive GUI, using JSwing
+    - Creates an interactive, functional GUI connected by the Controller, using JSwing
 
-The image "purple50x50.ppm" was created by me and I authorize its use in this project.
+All images in the program are created by me and I authorize their use in this project.
 
-Contains code in the ViewPPM, and RepresentationConverter classes written by Professor Lucia Nunez, who authorized their use in this project.
-
-### --View Decoupling--
-There are no additional files required to make the view compile.
-
-### --A6 Notes:--
-Added a new class to the model to handle conversions and different type of image 
-extensions.\
-Also updated the controller to be able to use these different types of images:\
-    - saveImage and addImage both can accept multiple different image file types
+Contains code in the RepresentationConverter class written by Professor Lucia Nunez,
+who authorized its use in this project.
