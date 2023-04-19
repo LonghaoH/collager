@@ -19,7 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * This class represents an implementation of the Collager view.
+ * This class represents an implementation of CollagerView. Creates a user-friendly view that connects with the
+ * controller to be interactive.
  */
 public class CollagerViewImpl extends JFrame implements CollagerView {
   private JPanel mainPanel;

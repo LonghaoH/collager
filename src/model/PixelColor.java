@@ -6,7 +6,7 @@ import static model.RepresentationConverter.convertHSLtoRGB;
 import static model.RepresentationConverter.convertRGBtoHSL;
 
 /**
- * This class represents the color values of a single pixel.
+ * This class represents the color values of a single pixel. Has up to 4 color channels; Red, Green, Blue, and Alpha.
  */
 public class PixelColor {
   private final int alpha;

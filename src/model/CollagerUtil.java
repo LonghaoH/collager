@@ -5,8 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
 /**
- * This class contains utility methods to read a PPM image from file and simply print its contents.
- * Feel free to change this method as required.
+ * A utility class for Collagers. Reads .ppm files, as well as collager files and converts them into usable format.
  */
 public class CollagerUtil {
 

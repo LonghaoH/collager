@@ -4,7 +4,9 @@ import java.io.IOException;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * This interface represents a controller for a collager.
+ * This interface represents a controller for a collager. Allows for different styles of running,
+ * one inputting the commands via System.in,
+ * one with a provided script in a .txt file, and the standard GUI view where input is taken from the GUI.
  */
 public interface CollagerController {
 
@@ -20,7 +22,7 @@ public interface CollagerController {
   /**
    * Allows the user to run the controller given a script file.
    *
-   * @param filePath the file path of the script file.
+   * @param filePath the file path of the script file, of txt format.
    * @throws IOException if the inputted command is not supported by the controller,
    *                     if the file is not found, or if the file already exist.
    */

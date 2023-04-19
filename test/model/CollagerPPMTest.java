@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
- * Tests the Collager class.
+ * Tests the CollagerPPM class.
  */
 public class CollagerPPMTest {
   @Test

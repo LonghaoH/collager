@@ -7,7 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * This interface represents an interactive view of the Collager program with a GUI.
+ * This interface represents an interactive view of the Collager program with a GUI. Utilizes JSwing to create a frame
+ * with contents in it.
  */
 public interface CollagerView {
 

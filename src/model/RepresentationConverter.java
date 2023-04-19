@@ -2,8 +2,7 @@ package model;
 
 /**
  * This class contains utility methods to convert an RGB representation
- * to HSL and back and print those results.
- * Feel free to change these methods as required.
+ * to HSL and back and store the results in an array.
  */
 public class RepresentationConverter {
 
