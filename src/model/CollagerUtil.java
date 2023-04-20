@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
 /**
- * A utility class for Collagers. Reads .ppm files, as well as collager files and converts them into usable format.
+ * A utility class for Collagers. Reads .ppm files, as well as collager files and
+ * converts them into usable format.
  */
 public class CollagerUtil {
 

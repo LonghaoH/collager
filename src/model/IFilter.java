@@ -1,8 +1,9 @@
 package model;
 
 /**
- * This interface contains the filters that can be applied to the pixels of images on a layer. Applies a filter
- * individually to a pixel, and the Layer class applies that change to all the pixels in the layer.
+ * This interface contains the filters that can be applied to the pixels of images on a layer.
+ * Applies a filter individually to a pixel, and the Layer class applies that change
+ * to all the pixels in the layer.
  */
 public interface IFilter {
 

@@ -9,16 +9,16 @@ import view.CollagerView;
 import view.CollagerViewImpl;
 
 /**
- * A class to run the collager program. The program can run with different arguments, either '-file' or '-text', if
- * neither of these is given than it runs the program in GUI mode.
+ * A class to run the collager program. The program can run with different arguments,
+ * either '-file' or '-text', if neither of these is given than it runs the program in GUI mode.
  */
 public class Main {
 
   /**
    * Runs the collager program.
    *
-   * @param args either '-file' or '-text' which controls which version of collager is run, if none are given
-   *             the default is run in GUI mode.
+   * @param args either '-file' or '-text' which controls which version of collager is run,
+   *             if none are given the default is run in GUI mode.
    * @throws IOException if the controller catches an exception.
    */
   public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException,

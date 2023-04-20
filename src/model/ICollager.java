@@ -42,8 +42,8 @@ public interface ICollager {
                  String extension, ImageFiles image) throws IOException;
 
   /**
-   * Adds a default layer to the collager. A default layer is a fully white layer with full transparency
-   * (alpha channel 0).
+   * Adds a default layer to the collager. A default layer is a fully white layer
+   * with full transparency (alpha channel 0).
    *
    * @param name the name of the layer
    * @throws IllegalArgumentException if the name is already in the collager
